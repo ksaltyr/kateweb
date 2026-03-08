@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Story about The time I Almost got hit by a Train</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+margin:0;
+padding:0;
+font-family: Verdana, Geneva, sans-serif;
+background-image:url("fish2.jpg");
+background-repeat:repeat;
+background-size:120px;
+}
+
+.page{
+max-width:720px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.box{
+background:white;
+border:2px solid black;
+padding:18px;
+margin-bottom:18px;
+}
+
+h1{
+margin:0 0 10px 0;
+font-size:26px;
+font-weight:normal;
+}
+
+.date{
+font-size:12px;
+color:#555;
+margin-bottom:14px;
+}
+
+p{
+line-height:1.6;
+}
+
+.post-image{
+width:300px;
+margin-top:12px;
+border:2px solid black;
+display:block;
+margin-left:auto;
+margin-right:auto;
+}
+
+a{
+color:black;
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="box">
+<h1>Story about The time I almost got hit by a Train</h1>
+<div class="date">March 8 2026</div>
+
+<p> Drunk driving home. Again. The third time I swore I would never go back to that house or lay on the couch in that basement. Open windows invite cool summer air inside and, after a minute, it starts to dry out my contacts. I know this route like the back of my hand. I had even walked from my house to his backyard once or twice. Blurry double vision softens the flashing red lights. There is a rumbling over the soft radio, I can feel it in my feet. </p>
+<p> I sit in the wet grass and trace shapes on my best friend’s bare thigh with my right hand. Maddy’s left hand fingers the grass and plucks the blades from their roots. A bouncing basketball echoes in my ears as I watch her focus on tying a knot with the one or maybe two pieces of grass twirling in front of her face. When I hear my friends laugh I join in just a second behind. I throw my head back each time to make it look like I was paying attention. Smiling in their shadowy faces and shifting my weight to either side. We wander through the field next to Maddy’s house, guided by the orange light of a cigarette drag. There is a tree that bends across the river, reaching away from the path as if it belongs on the other side of the water. An inhale and a long exhale. Dancing smoke on a rocky shore. I grip the side of a branch with both hands and pull myself up, steadying my body, and straddle the twisting trunk of the tree to scoot forward until I float above the middle of the river. Shaken leaves fall into the water and spin in circles while someone softly plays a guitar.</p>
+<p> Before I knew it, I was moving over the old tracks-- just as the train horn blared. My head snaps left and eyes widen as the white headlights inch closer to my face.</p>
+<p>The clink of beer bottles in the dark. I relax my shoulders. Occasionally there is a cough or a giggle that rings out over the buzzing cicadas. I recline, balanced carefully between two branches as one leg dangles over the river. My mouth is dry. A cricket chirps in my ear, singing our soundtrack to the stars of the night. I think to myself: Where did we put the bottle?</p>
+<p>My eyesight starts to blur and come into focus as my car rolls onto the other side of the tracks. The back half of my car shakes with the force of the train speeding by. I look around me to make sure everything is still real, touching the headrest behind me and the window, cool with night air. When I am sure that it is, I burst into a high-pitched laughter. Then the last laugh rings out. Then my headlights go dark. I start to cry. When I regain my composure, I continue the rest of the drunk drive home with the radio off, squinting with one eye open.</p>
+
+</div>
+
+<div class="box">
+<a href="writing.html">← Back to Writing</a>
+</div>
+
+</div>
+
+</body>
+</html>
