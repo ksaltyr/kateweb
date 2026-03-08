@@ -4,27 +4,11 @@
 <head>
 
 <title>Kate</title>
-  
-<link rel="icon" href="favicon.gif">
-  
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-.header{
-display:flex;
-align-items:center;
-gap:14px;
-}
 
-.icon{
-width:42px;
-height:auto;
-image-rendering:pixelated;
-}
-
-.header h1{
-margin:0;
-}
 html{
 scroll-behavior:smooth;
 }
@@ -35,7 +19,7 @@ padding:0;
 font-family: Verdana, Geneva, sans-serif;
 background-image:url("fish2.jpg");
 background-repeat:repeat;
-background-size:200px;
+background-size:120px;
 }
 
 .page{
@@ -51,30 +35,41 @@ padding:18px;
 margin-bottom:18px;
 }
 
+.header{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.header img{
+width:40px;
+image-rendering:pixelated;
+}
+
 h1{
-margin:0 0 10px 0;
+margin:0;
 font-size:28px;
 font-weight:normal;
 }
 
-h2{
-margin-top:0;
-font-size:18px;
-font-weight:normal;
+.subtitle{
+margin-top:4px;
 }
 
-.nav a{
-margin-right:14px;
-color:black;
+.menu{
+cursor:pointer;
+transition:background .15s;
+}
+
+.menu:hover{
+background:#f2f2f2;
+}
+
+.menu a{
+display:block;
 text-decoration:none;
-}
-
-.nav a:hover{
-text-decoration:underline;
-}
-
-p{
-line-height:1.6;
+color:black;
+font-size:20px;
 }
 
 .fish{
@@ -101,40 +96,36 @@ animation:swim 30s linear infinite;
 <div class="page">
 
 <div class="box header">
-<img src="favicon.gif" class="icon">
+
+<img src="favicon.gif">
+
+<div>
 <h1>Kate</h1>
-<p>a Web page</p>
-</div>
-
-<div class="box nav">
-<a href="#hello">hello</a>
-<a href="#222">222</a>
-<a href="#333">333</a>
-<a href="#444">444</a>
-</div>
-
-<div class="box" id="hello">
-<h2>Hello</h2>
-<p>My name is Kate. I made this online. </p>
-</div>
-
-<div class="box" id="222">
-<h2>222</h2>
-<p>Future Post Here!! Check back soon.</p>
-</div>
-
-<div class="box" id="333">
-<h2>333</h2>
-<p>Future Post Here!! Check back soon.</p>
-</div>
-
-<div class="box" id="444">
-<h2>444</h2>
-<p>Future Post Here!! Check back soon.</p>
+<div class="subtitle">a Web page</div>
 </div>
 
 </div>
+
+
+<div class="box menu">
+<a href="hello.html">Hello</a>
+</div>
+
+<div class="box menu">
+<a href="222.html">222</a>
+</div>
+
+<div class="box menu">
+<a href="333.html">333</a>
+</div>
+
+<div class="box menu">
+<a href="444.html">444</a>
+</div>
+
+</div>
+
+<img src="fish.gif" class="fish">
 
 </body>
-
 </html>
