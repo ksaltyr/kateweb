@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Art that I have made</title>
+<title>My Art</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,13 +13,13 @@ body{
 margin:0;
 padding:0;
 font-family: Verdana, Geneva, sans-serif;
-background-image:url("fish2.jpg");
+background-image:url("background.gif");
 background-repeat:repeat;
 background-size:120px;
 }
 
 .page{
-max-width:720px;
+max-width:900px;
 margin:40px auto;
 padding:0 20px;
 }
@@ -48,25 +48,31 @@ font-size:26px;
 font-weight:normal;
 }
 
+h2{
+margin:0 0 14px 0;
+font-size:20px;
+font-weight:normal;
+}
+
 .gallery{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr 1fr 1fr;
 gap:16px;
 }
 
-.art-piece img{
-width:100%;
+.gallery a{
+display:block;
+}
+
+.gallery img{
+max-width:100%;
+height:auto;
+display:block;
 border:2px solid black;
-cursor:pointer;
 }
 
-.art-piece img:hover{
+.gallery img:hover{
 opacity:0.9;
-}
-
-.caption{
-font-size:12px;
-margin-top:6px;
 }
 
 a{
@@ -77,13 +83,6 @@ text-decoration:none;
 a:hover{
 text-decoration:underline;
 }
-} 
-.art-piece img{
-max-width:100%;
-height:auto;
-display:block;
-margin:auto;
-}
 
 @media (max-width:700px){
 
@@ -92,7 +91,7 @@ grid-template-columns:1fr;
 }
 
 }
-  
+
 </style>
 
 </head>
