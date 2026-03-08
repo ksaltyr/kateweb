@@ -89,6 +89,8 @@ text-decoration:underline;
 <a href="writing.html">← Back to Writing</a>
 </div>
 
+<div class="box">
+<a href="index.html">← Back to Home</a>
 </div>
 
 </body>
