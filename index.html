@@ -1,16 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Kate</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kate</title>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      color: #000;
+      background-image: url("5388874_f64de.gif");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .overlay {
+      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 20px 80px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .header-box,
+    .nav-box,
+    .section-box {
+      background: white;
+      border: 2px solid black;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 6px 6px 0 #000;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.5rem;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .nav-box a {
+      color: black;
+      text-decoration: none;
+      margin-right: 14px;
+      font-weight: bold;
+    }
+
+    .nav-box a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .section-box + .section-box {
+      margin-top: 24px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .header-box,
+      .nav-box,
+      .section-box {
+        padding: 16px;
+        box-shadow: 4px 4px 0 #000;
+      }
+
+      .nav-box a {
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="overlay">
+    <div class="container">
 
-<h1>Hi, I'm Kate.</h1>
+      <div class="header-box">
+        <h1>Kate</h1>
+        <p class="tagline">a small place on the internet</p>
+      </div>
 
-<p>Welcome to my website.</p>
+      <div class="nav-box">
+        <a href="#about">about</a>
+        <a href="#writing">writing</a>
+        <a href="#photos">photos</a>
+        <a href="#links">links</a>
+      </div>
 
-<p>This is where I'll post writing, thoughts, and other things.</p>
+      <div class="section-box" id="about">
+        <h2>About</h2>
+        <p>
+          Hi, I'm Kate. This is my website. I wanted something simple, personal,
+          and a little old-internet.
+        </p>
+      </div>
 
+      <div class="section-box" id="writing">
+        <h2>Writing</h2>
+        <p>
+          Put your writing here. You can turn this into mini posts, notes,
+          essays, fragments, whatever.
+        </p>
+      </div>
+
+      <div class="section-box" id="photos">
+        <h2>Photos</h2>
+        <p>
+          Add images, screenshots, art, fish tank pics, anything.
+        </p>
+      </div>
+
+      <div class="section-box" id="links">
+        <h2>Links</h2>
+        <p>
+          Add your socials, favorite sites, playlists, or random things you like.
+        </p>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
