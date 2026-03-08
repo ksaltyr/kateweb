@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Fish photos</title>
+<title>FISH photos</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,29 +31,42 @@ padding:18px;
 margin-bottom:18px;
 }
 
+.header{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.header img{
+width:40px;
+image-rendering:pixelated;
+}
+
 h1{
-margin:0 0 10px 0;
+margin:0;
 font-size:26px;
 font-weight:normal;
 }
 
-.date{
-font-size:12px;
-color:#555;
-margin-bottom:14px;
+.gallery{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
 }
 
-p{
-line-height:1.6;
-}
-
-.post-image{
-width:300px;
-margin-top:12px;
+.art-piece img{
+width:100%;
 border:2px solid black;
-display:block;
-margin-left:auto;
-margin-right:auto;
+cursor:pointer;
+}
+
+.art-piece img:hover{
+opacity:0.9;
+}
+
+.caption{
+font-size:12px;
+margin-top:6px;
 }
 
 a{
@@ -65,6 +78,12 @@ a:hover{
 text-decoration:underline;
 }
 
+@media (max-width:700px){
+.gallery{
+grid-template-columns:1fr;
+}
+}
+
 </style>
 
 </head>
@@ -73,20 +92,118 @@ text-decoration:underline;
 
 <div class="page">
 
-<div class="box">
-<h1>Fish photos</h1>
-<div class="date">March 2026</div>
-
-<p>Hello.</p>
-
-<p>Check back soon.</p>
-
-<img src="FISHH.gif" class="post-image">
-
+<div class="box header">
+<img src="FISHH.gif">
+<h1>FISH photos</h1>
 </div>
 
+
+<div class="box">
+
+<div class="gallery">
+
+<div class="art-piece">
+<a href="fishpic1.jpg" target="_blank">
+<img src="fishpic1.jpg">
+</a>
+<div class="caption">Clown fish</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic2.jpg" target="_blank">
+<img src="fishpic2.jpg">
+</a>
+<div class="caption">Scalloped hammerhead</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic3.jpg" target="_blank">
+<img src="fishpic3.jpg">
+</a>
+<div class="caption">Me with largemouth bass/div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic4.jpg" target="_blank">
+<img src="fishpic4.jpg">
+</a>
+<div class="caption">My tank with clownfish and shrimp (RIP)l</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic5.jpg" target="_blank">
+<img src="fishpic5.jpg">
+</a>
+<div class="caption">Little guy</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic6.jpg" target="_blank">
+<img src="fishpic6.jpg">
+</a>
+<div class="caption">Me with shark</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic7.jpg" target="_blank">
+<img src="fishpic7.jpg">
+</a>
+<div class="caption">Some goldfishr</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic8.jpg" target="_blank">
+<img src="fishpic8.jpg">
+</a>
+<div class="caption">Me with shark again</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic9.jpg" target="_blank">
+<img src="fishpic9.jpg">
+</a>
+<div class="caption">And again</div>
+</div>
+  
+<div class="art-piece">
+<a href="fishpic10.jpg" target="_blank">
+<img src="fishpic10.jpg">
+</a>
+<div class="caption">Catfish!</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic11jpg" target="_blank">
+<img src="fishpic11.jpg">
+</a>
+<div class="caption">Puffer at the aquarium</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic12.jpg" target="_blank">
+<img src="fishpic12.jpg">
+</a>
+<div class="caption">Catfish again!</div>
+</div>
+
+<div class="art-piece">
+<a href="fishpic13.jpg" target="_blank">
+<img src="fishpic13.jpg">
+</a>
+<div class="caption">BIG catfish!!</div>
+
+<div class="art-piece">
+<a href="fishpic14.jpg" target="_blank">
+<img src="fishpic14.jpg">
+</a>
+<div class="caption">Another me with largemouth bass</div>
+</div>
+  
+</div>
 <div class="box">
 <a href="photos.html">← Back to Photos</a>
+</div>
+
 </div>
 
 </body>
