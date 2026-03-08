@@ -3,7 +3,7 @@
 
 <head>
 
-<title>My Art</title>
+<title>FISH photos</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,13 +13,13 @@ body{
 margin:0;
 padding:0;
 font-family: Verdana, Geneva, sans-serif;
-background-image:url("background.gif");
+background-image:url("fish2.jpg");
 background-repeat:repeat;
 background-size:120px;
 }
 
 .page{
-max-width:900px;
+max-width:720px;
 margin:40px auto;
 padding:0 20px;
 }
@@ -48,31 +48,25 @@ font-size:26px;
 font-weight:normal;
 }
 
-h2{
-margin:0 0 14px 0;
-font-size:20px;
-font-weight:normal;
-}
-
 .gallery{
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
+grid-template-columns:1fr 1fr;
 gap:16px;
 }
 
-.gallery a{
-display:block;
-}
-
-.gallery img{
-max-width:100%;
-height:auto;
-display:block;
+.art-piece img{
+width:100%;
 border:2px solid black;
+cursor:pointer;
 }
 
-.gallery img:hover{
+.art-piece img:hover{
 opacity:0.9;
+}
+
+.caption{
+font-size:12px;
+margin-top:6px;
 }
 
 a{
@@ -85,11 +79,9 @@ text-decoration:underline;
 }
 
 @media (max-width:700px){
-
 .gallery{
 grid-template-columns:1fr;
 }
-
 }
 
 </style>
@@ -102,7 +94,7 @@ grid-template-columns:1fr;
 
 <div class="box header">
 <img src="FISHH.gif">
-<h1>Art that I have made</h1>
+<h1>My art</h1>
 </div>
 
 
@@ -114,8 +106,7 @@ grid-template-columns:1fr;
 <a href="painting001.jpg" target="_blank">
 <img src="painting001.jpg">
 </a>
-<div class="caption">Landscape in oil</div>
-</div>
+<div class="caption">Landscape in oil (commission)/div>
 </div>
 
 <div class="art-piece">
@@ -124,6 +115,12 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
+
+<div class="art-piece">
+<a href="painting02.jpg" target="_blank">
+<img src="painting02.jpg">
+</a>
+<div class="caption">Landscape in oil</div>
 </div>
 
 <div class="art-piece">
@@ -132,15 +129,6 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
-
-<div class="art-piece">
-<a href="painting2.jpg" target="_blank">
-<img src="painting2.jpg">
-</a>
-<div class="caption">Landscape in oil</div>
-</div>
-</div>
 
 <div class="art-piece">
 <a href="painting3.jpg" target="_blank">
@@ -148,126 +136,110 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting4.jpg" target="_blank">
 <img src="painting4.jpg">
 </a>
-<div class="caption">Ink on 9x18 Paper</div>
-</div>
+<div class="caption">Ink on 9x18 paper</div>
 </div>
 
 <div class="art-piece">
 <a href="painting5.jpg" target="_blank">
 <img src="painting5.jpg">
 </a>
-<div class="caption">Ink on 9x18 Paper</div>
-</div>
+<div class="caption">Ink on 9x18 paper</div>
 </div>
 
 <div class="art-piece">
 <a href="painting6.jpg" target="_blank">
 <img src="painting6.jpg">
 </a>
-<div class="caption">Ink and crayon on 9x18 Paper</div>
+<div class="caption">Ink and crayon on 9x18 paper</div>
 </div>
-</div>
-
 
 <div class="art-piece">
 <a href="painting7.jpg" target="_blank">
 <img src="painting7.jpg">
 </a>
-<div class="caption">Ink and crayon on 9x18 Paper</div>
-</div>
+<div class="caption">Ink and crayon on 9x18 paper</div>
 </div>
   
 <div class="art-piece">
 <a href="painting8.jpg" target="_blank">
 <img src="painting8.jpg">
 </a>
-<div class="caption">Erased charcoal on 24x36 paper</div>
-</div>
+<div class="caption">Erased charcoal on 18x32 paper</div>
 </div>
 
 <div class="art-piece">
 <a href="painting9.jpg" target="_blank">
 <img src="painting9.jpg">
 </a>
-<div class="caption">Mono-Lithograph prints</div>
-</div>
+<div class="caption">Mono lithograph prints</div>
 </div>
 
 <div class="art-piece">
 <a href="painting10.jpg" target="_blank">
 <img src="painting10.jpg">
 </a>
-<div class="caption">Acrylic on 9x12 canvas</div>
-</div>
+<div class="caption">Acrylic on canvas</div>
 </div>
 
 <div class="art-piece">
 <a href="painting11.jpg" target="_blank">
 <img src="painting11.jpg">
 </a>
-<div class="caption">Acrylic on 9x12 canvas</div>
+<div class="caption">Acrylic on canvas</div>
 </div>
-
+  
 <div class="art-piece">
 <a href="painting12.jpg" target="_blank">
 <img src="painting12.jpg">
 </a>
-<div class="caption">Ink and watercolor on 9x18 paper</div>
+<div class="caption">Ink and watercolor on 9x12 paper</div>
 </div>
-</div>
-
+    
 <div class="art-piece">
 <a href="painting13.jpg" target="_blank">
 <img src="painting13.jpg">
 </a>
-<div class="caption">Ink and watercolor on 9x18 paper</div>
+<div class="caption">Ink and watercolor on 9x12 paper</div>
 </div>
-</div>
-
+    
 <div class="art-piece">
 <a href="painting14.jpg" target="_blank">
 <img src="painting14.jpg">
 </a>
-<div class="caption">Ink and acrylic on 9x18 paper</div>
+<div class="caption">Acrylic on 9x12 paper</div>
 </div>
-</div>
-
+    
 <div class="art-piece">
 <a href="painting15.jpg" target="_blank">
 <img src="painting15.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
-
+    
 <div class="art-piece">
 <a href="painting16.jpg" target="_blank">
 <img src="painting16.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
-
+    
 <div class="art-piece">
 <a href="painting17.jpg" target="_blank">
 <img src="painting17.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
-
+  
 <div class="art-piece">
 <a href="painting18.jpg" target="_blank">
 <img src="painting18.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
-</div>
 </div>
 
 <div class="art-piece">
@@ -276,7 +248,6 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting20.jpg" target="_blank">
@@ -284,30 +255,26 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in acrylic</div>
 </div>
-</div>
-
+  
 <div class="art-piece">
 <a href="painting21.jpg" target="_blank">
 <img src="painting21.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
-
+  
 <div class="art-piece">
 <a href="painting22.jpg" target="_blank">
 <img src="painting22.jpg">
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting24.jpg" target="_blank">
 <img src="painting24.jpg">
 </a>
-<div class="caption">Bee collage with acrylic</div>
-</div>
+<div class="caption">Collage with acrylic, crayon, ink and paper</div>
 </div>
 
 <div class="art-piece">
@@ -316,14 +283,12 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting26.jpg" target="_blank">
 <img src="painting26.jpg">
 </a>
-<div class="caption">Moth collage with acrylic and crayon</div>
-</div>
+<div class="caption">Collage with acrylic, crayon, ink and paper</div>
 </div>
 
 <div class="art-piece">
@@ -332,7 +297,6 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting28.jpg" target="_blank">
@@ -340,54 +304,45 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Landscape in oil</div>
 </div>
-</div>
 
 <div class="art-piece">
 <a href="painting29.jpg" target="_blank">
 <img src="painting29.jpg">
 </a>
-<div class="caption">Dream conversation in watercolor with ink and crayon</div>
-</div>
+<div class="caption">Dream conversation with watercolor, ink, and crayon</div>
 </div>
 
 <div class="art-piece">
 <a href="painting30.jpg" target="_blank">
 <img src="painting30.jpg">
 </a>
-<div class="caption">Dream conversation in watercolor with ink and crayon</div>
-</div>
+<div class="caption">Dream conversation with watercolor, ink, and crayon</div>
 </div>
 
 <div class="art-piece">
 <a href="painting31.jpg" target="_blank">
 <img src="painting31.jpg">
 </a>
-<div class="caption">Dream conversation in watercolor with ink and crayon</div>
-</div>
+<div class="caption">Dream conversation with watercolor, ink, and crayon</div>
 </div>
 
 <div class="art-piece">
 <a href="painting32.jpg" target="_blank">
 <img src="painting32.jpg">
 </a>
-<div class="caption">Medication with acrylic, watercolor, ink, and other stuff</div>
-</div>
+<div class="caption">Dream conversation with watercolor, acrylic, ink, and crayon</div>
 </div>
 
 <div class="art-piece">
 <a href="painting33.jpg" target="_blank">
 <img src="painting33.jpg">
 </a>
-<div class="caption">NS in oil</div>
-</div>
-</div>
-
-<div class="art-piece">
+<div class="caption">Landscape in oil</div>
+</div<div class="art-piece">
 <a href="painting34.jpg" target="_blank">
 <img src="painting34.jpg">
 </a>
-<div class="caption">Us & the universe in acrylic</div>
-</div>
+<div class="caption">Us & Everything in acrylic</div>
 </div>
 
 <div class="art-piece">
@@ -396,8 +351,7 @@ grid-template-columns:1fr;
 </a>
 <div class="caption">Pets in acrylic</div>
 </div>
-</div>
-
+  
 </div>
 <div class="box">
 <a href="photos.html">← Back to Photos</a>
