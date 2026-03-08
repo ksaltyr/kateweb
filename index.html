@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kate</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+<html>
 
-    body {
+<head>
+<title>Kate</title>
+
+<style>
+
+.fish{
+position: fixed;
+bottom: 40px;
+left: -80px;
+width: 40px;
+image-rendering: pixelated;
+pointer-events:none;
+animation: swim 25s linear infinite;
+}
+
+@keyframes swim{
+0% { left: -80px; }
+100% { left: 110%; }
+}
+
+</style>
+
+</head>
+</body> {
   margin: 0;
   font-family: "Libre Baskerville", serif;
   font-weight: 400;
     }
       color: #000;
-      background-image: url("5388874_f64de.gif");
+      background-image: url("fish.gif");
       background-repeat: repeat;
       background-size: auto;
       background-attachment: fixed;
@@ -150,5 +164,6 @@
 
     </div>
   </div>
+  <img src="fish.png" class="fish">
 </body>
 </html>
