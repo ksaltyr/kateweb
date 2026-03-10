@@ -89,8 +89,7 @@ color:black;
 width:44px;
 image-rendering:pixelated;
 }
- 
-#fish{
+ #fish{
 position:fixed;
 right:-80px;
 top:80vh;
@@ -112,6 +111,7 @@ right:-80px;
 right:110vw;
 }
 
+}
 #feedFish{
 position:fixed;
 top:20px;
@@ -124,14 +124,14 @@ cursor:pointer;
 z-index:1000;
 }
 
-#food{
+.food{
 position:fixed;
 width:10px;
 height:10px;
 background:#6b4f2a;
 border:1px solid black;
 border-radius:50%;
-z-index:999;
+z-index:998;
 }
   
 </style>
@@ -144,7 +144,7 @@ z-index:999;
 
 <div class="box header">
 
-<img src="FISHH.gif">
+<img src="favicon.gif">
 
 <div>
 <h1>KATE</h1>
@@ -209,7 +209,7 @@ food.remove();
 /* resume swimming */
 setTimeout(() => {
 fish.style.transition = "";
-fish.style.left = "-80px";
+fish.style.right = "-80px";
 fish.style.animation = "swim 35s linear infinite";
 }, 2600);
 
@@ -218,4 +218,3 @@ fish.style.animation = "swim 35s linear infinite";
 </script>  
 </body>
 </html>
-  
