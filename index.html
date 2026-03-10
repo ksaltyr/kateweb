@@ -286,9 +286,12 @@ function swim(){
       fishState = "swimming";
       targetFood = null;
     } else {
-      const dx = targetFood.x - fishX;
-      const dy = targetFood.y - fishY;
-      const d = Math.hypot(dx, dy);
+      const mouthX = fishX + 12;
+const mouthY = fishY + 32;
+
+const dx = targetFood.x - mouthX;
+const dy = targetFood.y - mouthY;
+const d = Math.hypot(dx, dy);
 
       if(dx < 0){
         setDirection("facing-left");
@@ -296,7 +299,7 @@ function swim(){
         setDirection("facing-right");
       }
 
-      if(d < 12){
+      if(d < 6){
         removeFood(targetFood);
         targetFood = null;
         fishState = "swimming";
