@@ -121,7 +121,19 @@ border-radius:50%;
 z-index:999;
 pointer-events:none;
 }
-
+#fish-banner{
+position:fixed;
+bottom:10px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+border:2px solid black;
+padding:6px 12px;
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+z-index:1000;
+pointer-events:none;
+}
 </style>
 
 </head>
@@ -317,5 +329,8 @@ const d = Math.hypot(dx, dy);
 animateFood();
 swim();
 </script>
+  <div id="fish-banner">
+click to feed fish
+</div>
 </body>
 </html>
