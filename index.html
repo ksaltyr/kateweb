@@ -85,46 +85,188 @@ color:black;
 width:44px;
 image-rendering:pixelated;
 }
- #fish{
+<img src="fish.gif" id="fish">
+
+<style>
+body{
+overflow-x:hidden;
+}
+
+#fish{
 position:fixed;
-bottom:80px;
 left:-80px;
+top:80vh;
 width:40px;
 image-rendering:pixelated;
-animation: swim 35s linear infinite;
 z-index:999;
-}
-
-@keyframes swim{
-0%{
-left:-80px;
-}
-100%{
-left:110vw;
-}
-}
-
-#feedFish{
-position:fixed;
-top:20px;
-right:20px;
-background:white;
-border:2px solid black;
-padding:6px 10px;
-font-family:Verdana, Geneva, sans-serif;
-cursor:pointer;
-z-index:1000;
+pointer-events:none;
 }
 
 .food{
 position:fixed;
-width:10px;
-height:10px;
-background:#6b4f2a;
+width:8px;
+height:8px;
+background:#7a5a2b;
 border:1px solid black;
 border-radius:50%;
 z-index:998;
+pointer-events:none;
 }
+
+@keyframes nibble {
+0%   { transform: translateY(0px); }
+25%  { transform: translateY(3px); }
+50%  { transform: translateY(0px); }
+75%  { transform: translateY(3px); }
+100% { transform: translateY(0px); }
+}
+</style>
+
+<script>
+const fish = document.getElementById("fish");
+const foods = [];
+
+let fishX = -80;
+let fishY = window.innerHeight * 0.8;
+let fishSpeed = 1.2;
+let fishState = "swimming"; // swimming | chasing | eating
+let targetFood = null;
+
+function updateFishPosition() {
+  fish.style.left = fishX + "px";
+  fish.style.top = fishY + "px";
+}
+
+updateFishPosition();
+
+document.addEventListener("click", function(e){
+  for(let i = 0; i < 4; i++){
+    createFood(
+      e.clientX + (Math.random() * 20 - 10),
+      e.clientY + (Math.random() * 10 - 5)
+    );
+  }
+});
+
+function createFood(x, y){
+  const food = document.createElement("div");
+  food.className = "food";
+  food.style.left = x + "px";
+  food.style.top = y + "px";
+  document.body.appendChild(food);
+
+  foods.push({
+    el: food,
+    x: x,
+    y: y,
+    speed: 1 + Math.random() * 1.5,
+    settled: false,
+    eaten: false
+  });
+}
+
+function animateFood(){
+  const floorY = window.innerHeight - 88;
+
+  for(let i = foods.length - 1; i >= 0; i--){
+    const food = foods[i];
+    if(food.eaten) continue;
+
+    if(!food.settled){
+      food.y += food.speed;
+
+      if(food.y >= floorY){
+        food.y = floorY;
+        food.settled = true;
+      }
+
+      food.el.style.left = food.x + "px";
+      food.el.style.top = food.y + "px";
+    }
+  }
+
+  requestAnimationFrame(animateFood);
+}
+
+function distance(ax, ay, bx, by){
+  return Math.hypot(ax - bx, ay - by);
+}
+
+function findNearestFood(){
+  let nearest = null;
+  let nearestDist = Infinity;
+
+  for(const food of foods){
+    if(food.eaten) continue;
+
+    const d = distance(fishX, fishY, food.x, food.y);
+    if(d < nearestDist){
+      nearestDist = d;
+      nearest = food;
+    }
+  }
+
+  if(nearest && nearestDist < 250){
+    return nearest;
+  }
+
+  return null;
+}
+
+function moveFish(){
+  if(fishState === "swimming"){
+    fishX += fishSpeed;
+
+    if(fishX > window.innerWidth + 60){
+      fishX = -80;
+      fishY = window.innerHeight * (0.7 + Math.random() * 0.15);
+    }
+
+    const nearbyFood = findNearestFood();
+    if(nearbyFood){
+      fishState = "chasing";
+      targetFood = nearbyFood;
+    }
+  }
+
+  else if(fishState === "chasing"){
+    if(!targetFood || targetFood.eaten){
+      fishState = "swimming";
+      targetFood = null;
+      return;
+    }
+
+    const dx = targetFood.x - fishX;
+    const dy = targetFood.y - fishY;
+    const d = Math.hypot(dx, dy);
+
+    if(d < 8){
+      fishState = "eating";
+      fish.style.animation = "nibble 0.4s linear 3";
+      setTimeout(() => {
+        if(targetFood && !targetFood.eaten){
+          targetFood.eaten = true;
+          targetFood.el.remove();
+          const index = foods.indexOf(targetFood);
+          if(index > -1) foods.splice(index, 1);
+        }
+        fish.style.animation = "";
+        fishState = "swimming";
+        targetFood = null;
+      }, 1200);
+    } else {
+      fishX += dx / d * 2;
+      fishY += dy / d * 2;
+    }
+  }
+
+  updateFishPosition();
+  requestAnimationFrame(moveFish);
+}
+
+animateFood();
+moveFish();
+</script>
   
 </style>
 
@@ -163,50 +305,5 @@ z-index:998;
 
 </div>
 
-<img src="FISHH.gif" id="fish">
-
-<button id="feedFish">Feed Fish</button>
-  
-<script>
-
-const fish = document.getElementById("fish");
-const button = document.getElementById("feedFish");
-
-button.addEventListener("click", () => {
-
-const food = document.createElement("div");
-food.className = "food";
-
-const x = Math.random() * (window.innerWidth - 100);
-const y = Math.random() * (window.innerHeight - 200) + 100;
-
-food.style.left = x + "px";
-food.style.top = y + "px";
-
-document.body.appendChild(food);
-
-/* pause normal swim */
-fish.style.animation = "none";
-
-/* move fish to food */
-fish.style.transition = "left 2.5s linear, top 2.5s linear";
-fish.style.left = x + "px";
-fish.style.top = y + "px";
-
-/* remove food */
-setTimeout(() => {
-food.remove();
-}, 2500);
-
-/* resume swimming */
-setTimeout(() => {
-fish.style.transition = "";
-fish.style.left = "-80px";
-fish.style.animation = "swim 35s linear infinite";
-}, 2600);
-
-});
-
-</script>  
 </body>
 </html>
