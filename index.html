@@ -184,7 +184,7 @@ food.className = "food";
 const x = Math.random() * (window.innerWidth - 100);
 const y = Math.random() * (window.innerHeight - 200) + 100;
 
-food.style.left = x + "px";
+food.style.left = (x + "px") + 100;
 food.style.top = y + "px";
 
 document.body.appendChild(food);
@@ -193,7 +193,7 @@ document.body.appendChild(food);
 fish.style.animation = "none";
 
 /* move fish to food */
-fish.style.transition = "left 6.5s linear, top 6.5s linear";
+fish.style.transition = "left 2.5s linear, top 2.5s linear";
 fish.style.left = x + "px";
 fish.style.top = y + "px";
 
