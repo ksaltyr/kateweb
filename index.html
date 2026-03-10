@@ -122,9 +122,9 @@ z-index:1000;
 
 .food{
 position:fixed;
-width:10px;
-height:10px;
-background:#7a5a2b;
+width:8px;
+height:8px;
+background:#6b4f2a;
 border:1px solid black;
 border-radius:50%;
 z-index:999;
@@ -184,8 +184,8 @@ food.className = "food";
 const x = Math.random() * (window.innerWidth - 100);
 const y = Math.random() * (window.innerHeight - 200) + 100;
 
-food.style.left = (x - 4) + "px";
-food.style.top = (y - 4) + "px";
+food.style.left = x + "px";
+food.style.top = y + "px";
 
 document.body.appendChild(food);
 
@@ -200,16 +200,17 @@ food.style.top = (y - 4) + "px";
 /* remove food */
 setTimeout(() => {
 food.remove();
-}, 2800);
+}, 2500);
 
 /* resume swimming */
 setTimeout(() => {
 fish.style.transition = "";
 fish.style.left = "-80px";
 fish.style.animation = "swim 35s linear infinite";
-}, 2900);
+}, 2600);
 
 });
+
 </script>  
 </body>
 </html>
