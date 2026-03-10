@@ -122,8 +122,8 @@ z-index:1000;
 
 .food{
 position:fixed;
-width:10px;
-height:10px;
+width:5px;
+height:5px;
 background:#6b4f2a;
 border:0px solid black;
 border-radius:50%;
@@ -198,16 +198,15 @@ fish.style.left = x + "px";
 fish.style.top = y + "px";
 
 /* remove food */
-setTimeout(() => {
 food.remove();
-}, 2500);
+}, 3200);
 
 /* resume swimming */
 setTimeout(() => {
 fish.style.transition = "";
 fish.style.left = "-80px";
 fish.style.animation = "swim 35s linear infinite";
-}, 2600);
+}, 3200);
 
 });
 
