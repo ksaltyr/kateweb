@@ -89,30 +89,27 @@ color:black;
 width:44px;
 image-rendering:pixelated;
 }
- #fish{
+ 
+#fish{
 position:fixed;
-left:-80px;
+right:-80px;
 top:80vh;
 width:120px;
 image-rendering:pixelated;
-.facing-left{
 transform:scaleX(-1);
-}
-
-.facing-right{
-transform:scaleX(1);
-}
+animation: swim 35s linear infinite;
 z-index:998;
 pointer-events:none;
 }
 
 @keyframes swim{
+
 0%{
-left:-80px;
+right:-80px;
 }
+
 100%{
-left:110vw;
-}
+right:110vw;
 }
 
 #feedFish{
