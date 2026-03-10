@@ -188,7 +188,7 @@ food.style.left = (x - 4) + "px";
 food.style.top = (y - 4) + "px";
 
 document.body.appendChild(food);
-createFood(e.clientX, e.clientY);
+
 /* pause normal swim */
 fish.style.animation = "none";
 
@@ -210,7 +210,7 @@ fish.style.animation = "swim 35s linear infinite";
 }, 3700);
 
 });
-
+createFood(e.clientX, e.clientY);
 </script>  
 </body>
 </html>
