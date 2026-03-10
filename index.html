@@ -194,20 +194,20 @@ fish.style.animation = "none";
 
 /* move fish to food */
 fish.style.transition = "left 2.5s linear, top 2.5s linear";
-food.style.left = (x - 4) + "px";
-food.style.top = (y - 4) + "px";
+food.style.left = (x) + "px";
+food.style.top = (y) + "px";
 
 /* remove food */
 setTimeout(() => {
 food.remove();
-}, 3600);
+}, 2800);
 
 /* resume swimming */
 setTimeout(() => {
 fish.style.transition = "";
 fish.style.left = "-80px";
 fish.style.animation = "swim 35s linear infinite";
-}, 3700);
+}, 2900);
 
 });
 createFood(e.clientX, e.clientY);
