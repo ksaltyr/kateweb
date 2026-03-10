@@ -96,7 +96,7 @@ left:-80px;
 width:120px;
 image-rendering:pixelated;
 animation: swim 35s linear infinite;
-z-index:999;
+z-index:998;
 }
 
 @keyframes swim{
@@ -124,10 +124,10 @@ z-index:1000;
 position:fixed;
 width:10px;
 height:10px;
-background:#6b4f2a;
+background:#7a5a2b;
 border:1px solid black;
 border-radius:50%;
-z-index:998;
+z-index:999;
 }
   
 </style>
@@ -184,11 +184,11 @@ food.className = "food";
 const x = Math.random() * (window.innerWidth - 100);
 const y = Math.random() * (window.innerHeight - 200) + 100;
 
-food.style.left = x + "px";
-food.style.top = y + "px";
+food.style.left = (x - 4) + "px";
+food.style.top = (y - 4) + "px";
 
 document.body.appendChild(food);
-
+createFood(e.clientX, e.clientY);
 /* pause normal swim */
 fish.style.animation = "none";
 
