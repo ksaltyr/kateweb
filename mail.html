@@ -1,132 +1,393 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+  <title>K8MAIL</title>
 
-<title>KATE MAIL</title>
-
-<link rel="icon" type="image" href="favicon.gif">
-  
-<link rel="shortcut icon" type="image" href="favicon.gif">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-
-body{
-margin:0;
-padding:0;
-font-family: Verdana, Geneva, sans-serif;
-background-image:url("fish2.jpg");
-background-repeat:repeat;
-background-size:120px;
-}
-
-.page{
-max-width:720px;
-margin:40px auto;
-padding:0 20px;
-}
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image" href="favicon.gif">
+  <link rel="shortcut icon" type="image" href="favicon.gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      padding: 20px;
-      line-height: 1.5;
-    }
-.box{
-background:white;
-border:2px solid black;
-padding:18px;
-margin-bottom:18px;
-}
-
-.header{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.header img{
-width:40px;
-image-rendering:pixelated;
-}
-
-h1{
-margin:0;
-font-size:26px;
-font-weight:normal;
-}
-
-    p {
-      margin-bottom: 25px;
-      color: #444;
+    html{
+      scroll-behavior:smooth;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    body{
+      margin:0;
+      padding:0;
+      font-family: Verdana, Geneva, sans-serif;
+      background-image:url("fish2.jpg");
+      background-repeat:repeat;
+      background-size:120px;
+      overflow-x:hidden;
     }
 
-    label {
-      font-weight: bold;
-      margin-bottom: 4px;
+    .page{
+      max-width:720px;
+      margin:40px auto;
+      padding:0 20px;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #bbb;
-      border-radius: 6px;
-      box-sizing: border-box;
+    .box{
+      background:white;
+      border:2px solid black;
+      padding:18px;
+      margin-bottom:18px;
     }
 
-    textarea {
-      min-height: 160px;
-      resize: vertical;
+    .header{
+      display:flex;
+      align-items:center;
+      gap:14px;
     }
 
-    button {
-      width: fit-content;
-      padding: 10px 18px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    .header img{
+      width:40px;
+      image-rendering:pixelated;
     }
 
-    .note {
-      font-size: 14px;
-      color: #666;
-      margin-top: 10px;
+    h1{
+      margin:0;
+      font-size:28px;
+      font-weight:normal;
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      font-size:22px;
+      font-weight:normal;
+    }
+
+    .subtitle{
+      margin-top:4px;
+    }
+
+    .menu{
+      cursor:pointer;
+      transition:background .15s;
+    }
+
+    .menu:hover{
+      background:#f2f2f2;
+    }
+
+    .menu a{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:18px;
+      text-decoration:none;
+      color:black;
+    }
+
+    .menu-icon{
+      width:44px;
+      image-rendering:pixelated;
+    }
+
+    .mail-text{
+      margin:0 0 14px 0;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    label{
+      font-size:14px;
+    }
+
+    input, textarea{
+      width:100%;
+      box-sizing:border-box;
+      border:2px solid black;
+      padding:10px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size:14px;
+      background:white;
+      color:black;
+    }
+
+    textarea{
+      min-height:180px;
+      resize:vertical;
+    }
+
+    button{
+      width:fit-content;
+      border:2px solid black;
+      background:white;
+      padding:10px 14px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#f2f2f2;
+    }
+
+    .small{
+      margin-top:10px;
+      font-size:12px;
+    }
+
+    #fish{
+      position:fixed;
+      top:80vh;
+      width:120px;
+      image-rendering:pixelated;
+      z-index:998;
+      pointer-events:none;
+    }
+
+    .facing-left{
+      transform:scaleX(-1);
+    }
+
+    .facing-right{
+      transform:scaleX(1);
+    }
+
+    .food{
+      position:fixed;
+      width:8px;
+      height:8px;
+      background:#7a5a2b;
+      border:1px solid black;
+      border-radius:50%;
+      z-index:999;
+      pointer-events:none;
+    }
+
+    #fish-banner{
+      position:fixed;
+      bottom:10px;
+      left:50%;
+      transform:translateX(-50%);
+      background:white;
+      border:2px solid black;
+      padding:6px 12px;
+      font-family:Verdana, Geneva, sans-serif;
+      font-size:12px;
+      z-index:1000;
+      pointer-events:none;
     }
   </style>
 </head>
+
 <body>
-  <h1>SEND MAIL!</h1>
-  <p>Send me a message..</p>
 
-  <form action="https://formspree.io/f/meerlalz" method="POST">
-    <label for="name">KATE MAIL</label>
-    <input type="text" id="name" name="name" required>
+  <div class="page">
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <div class="box header">
+      <img src="favicon.gif">
+      <div>
+        <h1>K A T E</h1>
+        <div class="subtitle">a Web page online</div>
+      </div>
+    </div>
 
-    <label for="message">Message</label>
-    <textarea id="message" name="message" required></textarea>
+    <div class="box menu">
+      <a href="index.html"><img src="FISHH.gif" class="menu-icon">HOME</a>
+    </div>
 
-    <!-- optional subject line in your email -->
-    <input type="hidden" name="_subject" value="New mail from kateweb.site">
+    <div class="box" id="mail-box">
+      <h2>SEND MAIL!!</h2>
+      <p class="mail-text">leave a comment or send me a message here</p>
 
-    <button type="submit">Send</button>
-  </form>
+      <form id="mail-form" action="https://formspree.io/f/meerlalz" method="POST">
+        <label for="name">name</label>
+        <input type="text" id="name" name="name" required>
 
-  <p class="note">Thanks for visiting kateweb.site.</p>
+        <label for="email">contact</label>
+        <input type="email" id="email" name="email">
+
+        <label for="message">message</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <input type="hidden" name="_subject" value="New message from kateweb.site">
+
+        <button type="submit">SEND</button>
+      </form>
+
+      <div class="small">this sends to my mail</div>
+    </div>
+
+  </div>
+
+  <img src="clownfish.gif" id="fish" class="facing-left">
+
+  <div id="fish-banner">
+    click anywhere 2 feed fish
+  </div>
+
+  <script>
+    const fish = document.getElementById("fish");
+    const foods = [];
+
+    let fishX = window.innerWidth + 80;
+    let fishY = window.innerHeight * 0.8;
+    let fishSpeed = 1.2;
+    let fishState = "swimming";
+    let targetFood = null;
+
+    function setDirection(dir){
+      fish.classList.remove("facing-left","facing-right");
+      fish.classList.add(dir);
+    }
+
+    function updateFish(){
+      fish.style.left = fishX + "px";
+      fish.style.top = fishY + "px";
+    }
+
+    setDirection("facing-left");
+    updateFish();
+
+    const mailBox = document.getElementById("mail-box");
+    mailBox.addEventListener("click", function(e){
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", function(e){
+      for(let i = 0; i < 4; i++){
+        createFood(e.clientX, e.clientY + i * 6);
+      }
+    });
+
+    function createFood(x, y){
+      const food = document.createElement("div");
+      food.className = "food";
+      food.style.left = (x - 4) + "px";
+      food.style.top = (y - 4) + "px";
+      document.body.appendChild(food);
+
+      foods.push({
+        el: food,
+        x: x,
+        y: y,
+        speed: 1.2 + Math.random() * 0.6,
+        settled: false,
+        eaten: false
+      });
+    }
+
+    function animateFood(){
+      const floor = window.innerHeight - 88;
+
+      for(const food of foods){
+        if(food.eaten) continue;
+
+        if(!food.settled){
+          food.y += food.speed;
+
+          if(food.y >= floor){
+            food.y = floor;
+            food.settled = true;
+          }
+
+          food.el.style.top = food.y + "px";
+          food.el.style.left = (food.x - 4) + "px";
+        }
+      }
+
+      requestAnimationFrame(animateFood);
+    }
+
+    function distance(ax, ay, bx, by){
+      return Math.hypot(ax - bx, ay - by);
+    }
+
+    function findNearestFood(){
+      let nearest = null;
+      let nearestDist = Infinity;
+
+      for(const food of foods){
+        if(food.eaten) continue;
+
+        const d = distance(fishX, fishY, food.x, food.y);
+
+        if(d < nearestDist){
+          nearest = food;
+          nearestDist = d;
+        }
+      }
+
+      if(nearest && nearestDist < 260){
+        return nearest;
+      }
+
+      return null;
+    }
+
+    function removeFood(food){
+      food.eaten = true;
+      food.el.remove();
+
+      const index = foods.indexOf(food);
+      if(index > -1){
+        foods.splice(index, 1);
+      }
+    }
+
+    function swim(){
+      if(fishState === "swimming"){
+        setDirection("facing-left");
+        fishX -= fishSpeed;
+
+        if(fishX < -120){
+          fishX = window.innerWidth + 80;
+          fishY = window.innerHeight * (0.7 + Math.random() * 0.2);
+        }
+
+        const nearbyFood = findNearestFood();
+        if(nearbyFood){
+          fishState = "chasing";
+          targetFood = nearbyFood;
+        }
+      }
+
+      else if(fishState === "chasing"){
+        if(!targetFood || targetFood.eaten){
+          fishState = "swimming";
+          targetFood = null;
+        } else {
+          const mouthX = fishX + 12;
+          const mouthY = fishY + 32;
+
+          const dx = targetFood.x - mouthX;
+          const dy = targetFood.y - mouthY;
+          const d = Math.hypot(dx, dy);
+
+          if(dx < 0){
+            setDirection("facing-left");
+          } else {
+            setDirection("facing-right");
+          }
+
+          if(d < 6){
+            removeFood(targetFood);
+            targetFood = null;
+            fishState = "swimming";
+          } else {
+            fishX += (dx / d) * 2.2;
+            fishY += (dy / d) * 2.2;
+          }
+        }
+      }
+
+      updateFish();
+      requestAnimationFrame(swim);
+    }
+
+    animateFood();
+    swim();
+  </script>
+
 </body>
 </html>
