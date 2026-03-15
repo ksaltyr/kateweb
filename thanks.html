@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KATE WEBSITE</title>
+
+  <link rel="icon" type="image" href="favicon.gif">
+  <link rel="shortcut icon" type="image" href="favicon.gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      font-family: Verdana, Geneva, sans-serif;
+      background-image:url("fish2.jpg");
+      background-repeat:repeat;
+      background-size:120px;
+      overflow-x:hidden;
+    }
+
+    .page{
+      max-width:720px;
+      margin:40px auto;
+      padding:0 20px;
+    }
+
+    .box{
+      background:white;
+      border:2px solid black;
+      padding:18px;
+      margin-bottom:18px;
+    }
+
+    .header{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .header img{
+      width:40px;
+      image-rendering:pixelated;
+    }
+
+    h1{
+      margin:0;
+      font-size:28px;
+      font-weight:normal;
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      font-size:22px;
+      font-weight:normal;
+    }
+
+    p{
+      margin:0;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .subtitle{
+      margin-top:4px;
+    }
+
+    .menu{
+      cursor:pointer;
+      transition:background .15s;
+    }
+
+    .menu:hover{
+      background:#f2f2f2;
+    }
+
+    .menu a{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:18px;
+      text-decoration:none;
+      color:black;
+    }
+
+    .menu-icon{
+      width:44px;
+      image-rendering:pixelated;
+    }
+
+    .thanks-text{
+      margin-bottom:14px;
+    }
+
+    #fish{
+      position:fixed;
+      top:80vh;
+      width:120px;
+      image-rendering:pixelated;
+      z-index:998;
+      pointer-events:none;
+    }
+
+    .facing-left{
+      transform:scaleX(-1);
+    }
+
+    .facing-right{
+      transform:scaleX(1);
+    }
+
+    .food{
+      position:fixed;
+      width:8px;
+      height:8px;
+      background:#7a5a2b;
+      border:1px solid black;
+      border-radius:50%;
+      z-index:999;
+      pointer-events:none;
+    }
+
+    #fish-banner{
+      position:fixed;
+      bottom:10px;
+      left:50%;
+      transform:translateX(-50%);
+      background:white;
+      border:2px solid black;
+      padding:6px 12px;
+      font-family:Verdana, Geneva, sans-serif;
+      font-size:12px;
+      z-index:1000;
+      pointer-events:none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <div class="box header">
+      <img src="favicon.gif">
+      <div>
+        <h1>K A T E</h1>
+        <div class="subtitle">a Web page online</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>THANK U!!</h2>
+      <p class="thanks-text">your message was sent successfully.</p>
+      <p class="thanks-text">Very cool of you! Thank you for reaching out.</p>
+    </div>
+
+    <div class="box menu">
+      <a href="index.html"><img src="FISHH.gif" class="menu-icon">BACK HOME</a>
+    </div>
+
+    <div class="box menu">
+      <a href="mail.html"><img src="FISHH.gif" class="menu-icon">SEND ANOTHER MESSAGE</a>
+    </div>
+
+  </div>
+
+  <img src="clownfish.gif" id="fish" class="facing-left">
+
+  <div id="fish-banner">
+    click anywhere 2 feed fish
+  </div>
+
+  <script>
+    const fish = document.getElementById("fish");
+    const foods = [];
+
+    let fishX = window.innerWidth + 80;
+    let fishY = window.innerHeight * 0.8;
+    let fishSpeed = 1.2;
+    let fishState = "swimming";
+    let targetFood = null;
+
+    function setDirection(dir){
+      fish.classList.remove("facing-left","facing-right");
+      fish.classList.add(dir);
+    }
+
+    function updateFish(){
+      fish.style.left = fishX + "px";
+      fish.style.top = fishY + "px";
+    }
+
+    setDirection("facing-left");
+    updateFish();
+
+    document.addEventListener("click", function(e){
+      for(let i = 0; i < 4; i++){
+        createFood(e.clientX, e.clientY + i * 6);
+      }
+    });
+
+    function createFood(x, y){
+      const food = document.createElement("div");
+      food.className = "food";
+      food.style.left = (x - 4) + "px";
+      food.style.top = (y - 4) + "px";
+      document.body.appendChild(food);
+
+      foods.push({
+        el: food,
+        x: x,
+        y: y,
+        speed: 1.2 + Math.random() * 0.6,
+        settled: false,
+        eaten: false
+      });
+    }
+
+    function animateFood(){
+      const floor = window.innerHeight - 88;
+
+      for(const food of foods){
+        if(food.eaten) continue;
+
+        if(!food.settled){
+          food.y += food.speed;
+
+          if(food.y >= floor){
+            food.y = floor;
+            food.settled = true;
+          }
+
+          food.el.style.top = food.y + "px";
+          food.el.style.left = (food.x - 4) + "px";
+        }
+      }
+
+      requestAnimationFrame(animateFood);
+    }
+
+    function distance(ax, ay, bx, by){
+      return Math.hypot(ax - bx, ay - by);
+    }
+
+    function findNearestFood(){
+      let nearest = null;
+      let nearestDist = Infinity;
+
+      for(const food of foods){
+        if(food.eaten) continue;
+
+        const d = distance(fishX, fishY, food.x, food.y);
+
+        if(d < nearestDist){
+          nearest = food;
+          nearestDist = d;
+        }
+      }
+
+      if(nearest && nearestDist < 260){
+        return nearest;
+      }
+
+      return null;
+    }
+
+    function removeFood(food){
+      food.eaten = true;
+      food.el.remove();
+
+      const index = foods.indexOf(food);
+      if(index > -1){
+        foods.splice(index, 1);
+      }
+    }
+
+    function swim(){
+      if(fishState === "swimming"){
+        setDirection("facing-left");
+        fishX -= fishSpeed;
+
+        if(fishX < -120){
+          fishX = window.innerWidth + 80;
+          fishY = window.innerHeight * (0.7 + Math.random() * 0.2);
+        }
+
+        const nearbyFood = findNearestFood();
+        if(nearbyFood){
+          fishState = "chasing";
+          targetFood = nearbyFood;
+        }
+      }
+
+      else if(fishState === "chasing"){
+        if(!targetFood || targetFood.eaten){
+          fishState = "swimming";
+          targetFood = null;
+        } else {
+          const mouthX = fishX + 12;
+          const mouthY = fishY + 32;
+
+          const dx = targetFood.x - mouthX;
+          const dy = targetFood.y - mouthY;
+          const d = Math.hypot(dx, dy);
+
+          if(dx < 0){
+            setDirection("facing-left");
+          } else {
+            setDirection("facing-right");
+          }
+
+          if(d < 6){
+            removeFood(targetFood);
+            targetFood = null;
+            fishState = "swimming";
+          } else {
+            fishX += (dx / d) * 2.2;
+            fishY += (dy / d) * 2.2;
+          }
+        }
+      }
+
+      updateFish();
+      requestAnimationFrame(swim);
+    }
+
+    animateFood();
+    swim();
+  </script>
+
+</body>
+</html>
