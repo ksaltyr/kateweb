@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>K8MAIL</title>
+  <title>KATE WEBSITE</title>
 
   <link rel="icon" type="image" href="favicon.gif">
   <link rel="shortcut icon" type="image" href="favicon.gif">
@@ -62,29 +62,6 @@
       margin-top:4px;
     }
 
-    .menu{
-      cursor:pointer;
-      transition:background .15s;
-    }
-
-    .menu:hover{
-      background:#f2f2f2;
-    }
-
-    .menu a{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size:18px;
-      text-decoration:none;
-      color:black;
-    }
-
-    .menu-icon{
-      width:44px;
-      image-rendering:pixelated;
-    }
-
     .mail-text{
       margin:0 0 14px 0;
       font-size:14px;
@@ -134,6 +111,20 @@
     .small{
       margin-top:10px;
       font-size:12px;
+    }
+
+    .bottom-link{
+      margin-top:8px;
+      font-size:16px;
+    }
+
+    .bottom-link a{
+      color:black;
+      text-decoration:none;
+    }
+
+    .bottom-link a:hover{
+      text-decoration:underline;
     }
 
     #fish{
@@ -192,10 +183,6 @@
       </div>
     </div>
 
-    <div class="box menu">
-      <a href="index.html"><img src="FISHH.gif" class="menu-icon">HOME</a>
-    </div>
-
     <div class="box" id="mail-box">
       <h2>SEND MAIL!!</h2>
       <p class="mail-text">leave a comment or send me a message here</p>
@@ -207,17 +194,20 @@
         <label for="email">contact</label>
         <input type="email" id="email" name="email">
 
-        <label for="message">message</label>
+        <label for="message">mail</label>
         <textarea id="message" name="message" required></textarea>
 
-        <input type="hidden" name="_subject" value="New message from kateweb.site">
-
+        <input type="hidden" name="_subject" value="K8MAIL from kateweb.site">
         <input type="hidden" name="_next" value="https://kateweb.site/thanks.html">
-        
+
         <button type="submit">SEND</button>
       </form>
 
-      <div class="small">this sends to my mail</div>
+      <div class="small">this sends message to email. hopefullyd</div>
+    </div>
+
+    <div class="bottom-link">
+      <a href="index.html">← Back to Home</a>
     </div>
 
   </div>
