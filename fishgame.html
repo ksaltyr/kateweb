@@ -173,8 +173,20 @@ font-size:14px;
   </div>
 
 </div>
+  
+<div class="box">
+  <h2 style="margin:0 0 12px 0;">HIGH SCORES</h2>
+  <div id="leaderboardText">LOADING...</div>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+const SUPABASE_URL = "https://gqwbudqdrukqzntcrodk.supabase.co";
+const SUPABASE_KEY = "sb_publishable_DKU4dofF4evHqMARRtF2fA_otNyrd22";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -362,7 +374,7 @@ function update(){
     };
 
     if(rectsOverlap(fishRect, topRect) || rectsOverlap(fishRect, bottomRect)){
-      gameOver = true;
+      if (!gameOver) {   gameOver = true;   saveScore(score); };
     }
 
     if(coral.x + coral.width < -30){
@@ -377,7 +389,7 @@ function update(){
 
   if(fish.y + fish.height > gameHeight){
     fish.y = gameHeight - fish.height;
-    gameOver = true;
+    if (!gameOver) {   gameOver = true;   saveScore(score); };
   }
 }
 
@@ -507,6 +519,46 @@ restartBtn.addEventListener("click", function(){
 
 resetGame();
 loop();
+
+const leaderboardEl = document.getElementById("leaderboardText");
+
+async function loadScores() {
+  const { data, error } = await supabaseClient
+    .from("fish_scores")
+    .select("*")
+    .order("score", { ascending: false })
+    .limit(5);
+
+  if (error) {
+    console.log(error);
+    leaderboardEl.innerHTML = "ERROR";
+    return;
+  }
+
+  let html = "";
+
+  data.forEach((row, i) => {
+    html += `${i+1}. ${row.player_name} - ${row.score}<br>`;
+  });
+
+  leaderboardEl.innerHTML = html || "NO SCORES";
+}
+
+async function saveScore(score) {
+  let name = prompt("NAME?") || "ANON";
+
+  await supabaseClient
+    .from("fish_scores")
+    .insert([{ player_name: name, score: score }]);
+
+  loadScores();
+  
+}
+
+resetGame();
+loadScores();
+loop();
+
 </script>
 
 </body>
