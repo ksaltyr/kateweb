@@ -121,11 +121,66 @@ background:#f2f2f2;
 }
 
 #leaderboardText{
-line-height:1.6;
+line-height:1.7;
+font-family:monospace;
+font-size:16px;
 }
 
-.small{
-font-size:14px;
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
+z-index:9999;
+}
+
+.overlay.show{
+display:flex;
+}
+
+.modal{
+background:white;
+border:2px solid black;
+padding:18px;
+width:100%;
+max-width:320px;
+box-sizing:border-box;
+text-align:center;
+}
+
+.modal p{
+margin:0 0 12px 0;
+}
+
+.modal-score{
+margin:0 0 12px 0;
+font-family:monospace;
+font-size:18px;
+}
+
+.modal input{
+width:100%;
+box-sizing:border-box;
+font-family:monospace;
+font-size:28px;
+letter-spacing:8px;
+text-align:center;
+text-transform:uppercase;
+padding:10px;
+border:2px solid black;
+margin-bottom:12px;
+border-radius:0;
+}
+
+.modal-buttons{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
 }
 
 @media (max-width:600px){
@@ -193,6 +248,18 @@ font-size:14px;
 
 </div>
 
+<div class="overlay" id="nameOverlay">
+  <div class="modal">
+    <p>ENTER YOUR INITIALS</p>
+    <div class="modal-score">SCORE: <span id="finalScoreText">0</span></div>
+    <input id="nameInput" type="text" maxlength="3" placeholder="AAA" autocomplete="off">
+    <div class="modal-buttons">
+      <button class="game-button" id="skipNameBtn">ANON</button>
+      <button class="game-button" id="saveNameBtn">SAVE</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -208,6 +275,12 @@ const scoreEl = document.getElementById("SCORE");
 const bestEl = document.getElementById("BEST");
 const restartBtn = document.getElementById("restartBtn");
 const leaderboardEl = document.getElementById("leaderboardText");
+
+const nameOverlay = document.getElementById("nameOverlay");
+const nameInput = document.getElementById("nameInput");
+const saveNameBtn = document.getElementById("saveNameBtn");
+const skipNameBtn = document.getElementById("skipNameBtn");
+const finalScoreText = document.getElementById("finalScoreText");
 
 const fishImg = new Image();
 fishImg.src = "clownfish.gif";
@@ -225,6 +298,8 @@ let gameOver;
 let frame;
 let gameStarted;
 let speed;
+let pendingScore = null;
+let scoreSubmitted = false;
 
 function resetGame(){
   fish = {
@@ -243,12 +318,19 @@ function resetGame(){
   frame = 0;
   gameStarted = false;
   speed = 2.4;
+  pendingScore = null;
+  scoreSubmitted = false;
 
   scoreEl.textContent = score;
   bestEl.textContent = bestScore;
+  hideNameOverlay();
 }
 
 function flap(){
+  if(nameOverlay.classList.contains("show")){
+    return;
+  }
+
   if(gameOver){
     resetGame();
     gameStarted = true;
@@ -313,7 +395,7 @@ async function loadScores() {
     .select("*")
     .order("score", { ascending: false })
     .order("created_at", { ascending: true })
-    .limit(5);
+    .limit(10);
 
   if (error) {
     console.log(error);
@@ -324,34 +406,62 @@ async function loadScores() {
   let html = "";
 
   data.forEach((row, i) => {
-    html += `${i + 1}. ${row.player_name} - ${row.score}<br>`;
+    html += `${String(i + 1).padStart(2, "0")}. ${String(row.player_name).padEnd(3, " ")} ..... ${row.score}<br>`;
   });
 
   leaderboardEl.innerHTML = html || "NO SCORES";
 }
 
-async function saveScore(score) {
-  if (score <= 0) {
+function showNameOverlay(finalScore){
+  if(finalScore <= 0){
     return;
   }
 
-  let name = prompt("NAME?") || "ANON";
-  name = name.trim().toUpperCase().slice(0, 12);
+  pendingScore = finalScore;
+  scoreSubmitted = false;
+  nameInput.value = "";
+  finalScoreText.textContent = finalScore;
+  nameOverlay.classList.add("show");
 
-  if (!name) {
-    name = "ANON";
+  setTimeout(() => {
+    nameInput.focus();
+  }, 50);
+}
+
+function hideNameOverlay(){
+  nameOverlay.classList.remove("show");
+}
+
+async function submitPendingScore(nameValue){
+  if(pendingScore === null || scoreSubmitted){
+    return;
+  }
+
+  scoreSubmitted = true;
+
+  let name = (nameValue || "AAA").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 3);
+
+  if(!name){
+    name = "AAA";
   }
 
   const { error } = await supabaseClient
     .from("fish_scores")
-    .insert([{ player_name: name, score: score }]);
+    .insert([{ player_name: name, score: pendingScore }]);
 
   if (error) {
     console.log(error);
-    return;
   }
 
+  hideNameOverlay();
   loadScores();
+}
+
+function triggerGameOver(){
+  if(!gameOver){
+    gameOver = true;
+    showNameOverlay(score);
+  }
 }
 
 function update(){
@@ -436,10 +546,7 @@ function update(){
     };
 
     if(rectsOverlap(fishRect, topRect) || rectsOverlap(fishRect, bottomRect)){
-      if(!gameOver){
-        gameOver = true;
-        saveScore(score);
-      }
+      triggerGameOver();
     }
 
     if(coral.x + coral.width < -30){
@@ -454,10 +561,7 @@ function update(){
 
   if(fish.y + fish.height > gameHeight){
     fish.y = gameHeight - fish.height;
-    if(!gameOver){
-      gameOver = true;
-      saveScore(score);
-    }
+    triggerGameOver();
   }
 }
 
@@ -541,7 +645,7 @@ function drawText(){
     ctx.font = "18px Verdana";
     ctx.fillText("game over", gameWidth / 2 - 48, gameHeight / 2 - 8);
     ctx.font = "14px Verdana";
-    ctx.fillText("click, tap, or restart", gameWidth / 2 - 72, gameHeight / 2 + 20);
+    ctx.fillText("enter initials below", gameWidth / 2 - 64, gameHeight / 2 + 20);
   }
 }
 
@@ -579,10 +683,27 @@ window.addEventListener("keydown", function(e){
     e.preventDefault();
     flap();
   }
+
+  if(e.code === "Enter" && nameOverlay.classList.contains("show")){
+    e.preventDefault();
+    submitPendingScore(nameInput.value);
+  }
+});
+
+nameInput.addEventListener("input", function(){
+  nameInput.value = nameInput.value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 3);
 });
 
 restartBtn.addEventListener("click", function(){
   resetGame();
+});
+
+saveNameBtn.addEventListener("click", function(){
+  submitPendingScore(nameInput.value);
+});
+
+skipNameBtn.addEventListener("click", function(){
+  submitPendingScore("AAA");
 });
 
 resetGame();
