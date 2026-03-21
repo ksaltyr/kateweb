@@ -161,8 +161,8 @@ font-size:14px;
 
     <div class="game-ui">
       <div>
-        score: <span id="score">0</span> |
-        best: <span id="best">0</span>
+        score: <span id="SCORE">0</span> |
+        best: <span id="BEST">0</span>
       </div>
       <button class="game-button" id="restartBtn">RESTART</button>
     </div>
@@ -225,12 +225,12 @@ function flap(){
   if(gameOver){
     resetGame();
     gameStarted = true;
-    fish.velocityY = -4.8;
+    fish.velocityY = -3.6;
     return;
   }
 
   gameStarted = true;
-  fish.velocityY = -4.8;
+  fish.velocityY = -3.6;
 }
 
 function spawnFood(){
@@ -292,7 +292,7 @@ function update(){
     return;
   }
 
-  fish.velocityY += 0.24;
+  fish.velocityY += 0.20;
   fish.y += fish.velocityY;
 
   if(frame % 95 === 0){
