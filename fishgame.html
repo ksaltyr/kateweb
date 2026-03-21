@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>KATE WEBSITE</title>
+
+<link rel="icon" type="image" href="favicon.gif">
+<link rel="shortcut icon" type="image" href="favicon.gif">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+padding:0;
+font-family:Verdana, Geneva, sans-serif;
+background-image:url("fish2.jpg");
+background-repeat:repeat;
+background-size:120px;
+}
+
+.page{
+max-width:720px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.box{
+background:white;
+border:2px solid black;
+padding:18px;
+margin-bottom:18px;
+}
+
+.header{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.header img{
+width:40px;
+image-rendering:pixelated;
+}
+
+h1{
+margin:0;
+font-size:26px;
+font-weight:normal;
+}
+
+p{
+margin:0;
+line-height:1.5;
+}
+
+a{
+color:black;
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
+.game-wrap{
+text-align:center;
+}
+
+#gameBox{
+width:100%;
+border:2px solid black;
+background:#bfefff;
+box-sizing:border-box;
+overflow:hidden;
+margin-top:14px;
+}
+
+#gameCanvas{
+display:block;
+width:100%;
+height:auto;
+background:linear-gradient(to bottom, #bfefff 0%, #9ee7ff 55%, #7ad9d4 100%);
+image-rendering:pixelated;
+cursor:pointer;
+}
+
+.game-ui{
+margin-top:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+font-size:14px;
+}
+
+.game-button{
+font-family:Verdana, Geneva, sans-serif;
+font-size:14px;
+background:white;
+border:2px solid black;
+padding:6px 10px;
+cursor:pointer;
+}
+
+.game-button:hover{
+background:#f2f2f2;
+}
+
+.small{
+font-size:14px;
+}
+
+@media (max-width:600px){
+  .page{
+    margin:20px auto;
+    padding:0 10px;
+  }
+
+  .box{
+    padding:14px;
+  }
+
+  h1{
+    font-size:22px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+  <div class="box header">
+    <img src="favicon.gif" alt="">
+    <h1>KATE WEBSITE</h1>
+  </div>
+
+  <div class="box">
+    <p>
+      fish game<br>
+      click, tap, or press space to swim<br>
+      eat the fish food and avoid the coral
+    </p>
+  </div>
+
+  <div class="box game-wrap">
+    <div id="gameBox">
+      <canvas id="gameCanvas" width="680" height="260"></canvas>
+    </div>
+
+    <div class="game-ui">
+      <div>
+        score: <span id="score">0</span> |
+        best: <span id="best">0</span>
+      </div>
+      <button class="game-button" id="restartBtn">restart</button>
+    </div>
+  </div>
+
+  <div class="box">
+    <a href="index.html">← Back Home</a>
+  </div>
+
+</div>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const scoreEl = document.getElementById("score");
+const bestEl = document.getElementById("best");
+const restartBtn = document.getElementById("restartBtn");
+
+const fishImg = new Image();
+fishImg.src = "clownfish.gif";
+
+let gameWidth = canvas.width;
+let gameHeight = canvas.height;
+let bestScore = 0;
+
+let fish;
+let foods;
+let corals;
+let bubbles;
+let score;
+let gameOver;
+let frame;
+let gameStarted;
+let speed;
+
+function resetGame(){
+  fish = {
+    x: 90,
+    y: gameHeight / 2,
+    width: 42,
+    height: 28,
+    velocityY: 0
+  };
+
+  foods = [];
+  corals = [];
+  bubbles = [];
+  score = 0;
+  gameOver = false;
+  frame = 0;
+  gameStarted = false;
+  speed = 2.4;
+
+  scoreEl.textContent = score;
+  bestEl.textContent = bestScore;
+}
+
+function flap(){
+  if(gameOver){
+    resetGame();
+    gameStarted = true;
+    fish.velocityY = -4.8;
+    return;
+  }
+
+  gameStarted = true;
+  fish.velocityY = -4.8;
+}
+
+function spawnFood(){
+  foods.push({
+    x: gameWidth + 20,
+    y: 30 + Math.random() * (gameHeight - 70),
+    size: 10
+  });
+}
+
+function spawnCoral(){
+  const coralWidth = 24;
+  const gapHeight = 78;
+  const gapY = 35 + Math.random() * (gameHeight - 35 - gapHeight - 35);
+
+  corals.push({
+    x: gameWidth + 20,
+    width: coralWidth,
+    gapY: gapY,
+    gapHeight: gapHeight
+  });
+}
+
+function spawnBubble(){
+  bubbles.push({
+    x: Math.random() * gameWidth,
+    y: gameHeight + 10,
+    r: 2 + Math.random() * 4,
+    speed: 0.4 + Math.random() * 0.8
+  });
+}
+
+function rectsOverlap(a, b){
+  return (
+    a.x < b.x + b.width &&
+    a.x + a.width > b.x &&
+    a.y < b.y + b.height &&
+    a.y + a.height > b.y
+  );
+}
+
+function circleRectOverlap(circle, rect){
+  const closestX = Math.max(rect.x, Math.min(circle.x, rect.x + rect.width));
+  const closestY = Math.max(rect.y, Math.min(circle.y, rect.y + rect.height));
+  const dx = circle.x - closestX;
+  const dy = circle.y - closestY;
+  return (dx * dx + dy * dy) < (circle.size * circle.size);
+}
+
+function update(){
+  frame++;
+
+  if(frame % 22 === 0){
+    spawnBubble();
+  }
+
+  if(!gameStarted || gameOver){
+    updateBubbles();
+    return;
+  }
+
+  fish.velocityY += 0.24;
+  fish.y += fish.velocityY;
+
+  if(frame % 95 === 0){
+    spawnFood();
+  }
+
+  if(frame % 140 === 0){
+    spawnCoral();
+  }
+
+  if(frame % 600 === 0){
+    speed += 0.15;
+  }
+
+  updateBubbles();
+
+  for(let i = foods.length - 1; i >= 0; i--){
+    foods[i].x -= speed;
+
+    if(circleRectOverlap(
+      foods[i],
+      {
+        x: fish.x,
+        y: fish.y,
+        width: fish.width,
+        height: fish.height
+      }
+    )){
+      foods.splice(i, 1);
+      score++;
+      if(score > bestScore){
+        bestScore = score;
+      }
+      scoreEl.textContent = score;
+      bestEl.textContent = bestScore;
+      continue;
+    }
+
+    if(foods[i] && foods[i].x < -30){
+      foods.splice(i, 1);
+    }
+  }
+
+  for(let i = corals.length - 1; i >= 0; i--){
+    const coral = corals[i];
+    coral.x -= speed;
+
+    const topRect = {
+      x: coral.x,
+      y: 0,
+      width: coral.width,
+      height: coral.gapY
+    };
+
+    const bottomRect = {
+      x: coral.x,
+      y: coral.gapY + coral.gapHeight,
+      width: coral.width,
+      height: gameHeight - (coral.gapY + coral.gapHeight)
+    };
+
+    const fishRect = {
+      x: fish.x + 4,
+      y: fish.y + 3,
+      width: fish.width - 8,
+      height: fish.height - 6
+    };
+
+    if(rectsOverlap(fishRect, topRect) || rectsOverlap(fishRect, bottomRect)){
+      gameOver = true;
+    }
+
+    if(coral.x + coral.width < -30){
+      corals.splice(i, 1);
+    }
+  }
+
+  if(fish.y < 0){
+    fish.y = 0;
+    fish.velocityY = 0;
+  }
+
+  if(fish.y + fish.height > gameHeight){
+    fish.y = gameHeight - fish.height;
+    gameOver = true;
+  }
+}
+
+function updateBubbles(){
+  for(let i = bubbles.length - 1; i >= 0; i--){
+    bubbles[i].y -= bubbles[i].speed;
+    if(bubbles[i].y < -10){
+      bubbles.splice(i, 1);
+    }
+  }
+}
+
+function drawBackground(){
+  ctx.fillStyle = "#bfefff";
+  ctx.fillRect(0, 0, gameWidth, gameHeight);
+
+  ctx.fillStyle = "#9ee7ff";
+  ctx.fillRect(0, gameHeight - 42, gameWidth, 42);
+
+  ctx.fillStyle = "#d8c08a";
+  ctx.fillRect(0, gameHeight - 24, gameWidth, 24);
+}
+
+function drawBubbles(){
+  ctx.strokeStyle = "rgba(255,255,255,0.9)";
+  for(const b of bubbles){
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+}
+
+function drawFoodItem(food){
+  ctx.fillStyle = "#7a4b22";
+  ctx.fillRect(food.x - 1, food.y + 1, 8, 8);
+  ctx.fillStyle = "#9b6330";
+  ctx.fillRect(food.x, food.y, 8, 8);
+}
+
+function drawCoralPiece(coral){
+  ctx.fillStyle = "#1f7a5c";
+
+  for(let y = 0; y < coral.gapY; y += 16){
+    ctx.fillRect(coral.x, y, coral.width, 12);
+    ctx.fillRect(coral.x - 4, y + 4, 6, 6);
+    ctx.fillRect(coral.x + coral.width - 2, y + 2, 6, 6);
+  }
+
+  for(let y = coral.gapY + coral.gapHeight; y < gameHeight; y += 16){
+    ctx.fillRect(coral.x, y, coral.width, 12);
+    ctx.fillRect(coral.x - 4, y + 4, 6, 6);
+    ctx.fillRect(coral.x + coral.width - 2, y + 2, 6, 6);
+  }
+}
+
+function drawFish(){
+  if(fishImg.complete && fishImg.naturalWidth > 0){
+    ctx.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height);
+  } else {
+    ctx.fillStyle = "black";
+    ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
+  }
+}
+
+function drawText(){
+  ctx.fillStyle = "black";
+  ctx.font = "14px Verdana";
+
+  if(!gameStarted){
+    ctx.fillText("click to start", 20, 24);
+  }
+
+  if(gameOver){
+    ctx.fillStyle = "rgba(255,255,255,0.92)";
+    ctx.fillRect(gameWidth / 2 - 120, gameHeight / 2 - 42, 240, 84);
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(gameWidth / 2 - 120, gameHeight / 2 - 42, 240, 84);
+
+    ctx.fillStyle = "black";
+    ctx.font = "18px Verdana";
+    ctx.fillText("game over", gameWidth / 2 - 48, gameHeight / 2 - 8);
+    ctx.font = "14px Verdana";
+    ctx.fillText("click, tap, or restart", gameWidth / 2 - 72, gameHeight / 2 + 20);
+  }
+}
+
+function draw(){
+  drawBackground();
+  drawBubbles();
+
+  for(const coral of corals){
+    drawCoralPiece(coral);
+  }
+
+  for(const food of foods){
+    drawFoodItem(food);
+  }
+
+  drawFish();
+  drawText();
+}
+
+function loop(){
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+canvas.addEventListener("click", flap);
+
+canvas.addEventListener("touchstart", function(e){
+  e.preventDefault();
+  flap();
+}, { passive:false });
+
+window.addEventListener("keydown", function(e){
+  if(e.code === "Space"){
+    e.preventDefault();
+    flap();
+  }
+});
+
+restartBtn.addEventListener("click", function(){
+  resetGame();
+});
+
+resetGame();
+loop();
+</script>
+
+</body>
+</html>
