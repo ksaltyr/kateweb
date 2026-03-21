@@ -31,53 +31,62 @@
     .box{
       background:white;
       border:2px solid black;
-      padding:18px;
-      margin-bottom:18px;
+      padding:16px;
+      margin-bottom:14px;
     }
 
     .header{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
     }
 
     .header img{
-      width:40px;
+      width:36px;
       image-rendering:pixelated;
     }
 
     h1{
       margin:0;
-      font-size:28px;
+      font-size:26px;
       font-weight:normal;
     }
 
     h2{
       margin:0 0 10px 0;
-      font-size:22px;
+      font-size:20px;
       font-weight:normal;
     }
 
     .game-text{
-      margin:0 0 14px 0;
+      margin:0 0 12px 0;
       font-size:14px;
     }
 
+    /* GAME FIX */
+
     .game-container{
-      position:relative;
       width:100%;
-      max-width:800px;
-      margin:auto;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .game-frame{
+      width:800px;
+      height:520px;
+      transform:scale(min(1, calc(100vw / 800)));
+      transform-origin:top left;
     }
 
     iframe{
-      width:100%;
+      width:800px;
       height:520px;
       border:none;
       display:block;
     }
 
     /* overlay */
+
     .overlay{
       position:absolute;
       top:0;
@@ -95,8 +104,8 @@
     }
 
     .overlay-text{
-      font-size:22px;
-      margin-bottom:10px;
+      font-size:20px;
+      margin-bottom:8px;
     }
 
     .overlay-sub{
@@ -116,6 +125,8 @@
     .bottom-link a:hover{
       text-decoration:underline;
     }
+
+    /* fish */
 
     #fish{
       position:fixed;
@@ -183,18 +194,19 @@
         <div class="overlay-sub">click to begin</div>
       </div>
 
-      <iframe 
-        id="game"
-        src="https://funhtml5games.com/?embed=flappy"
-        scrolling="no">
-      </iframe>
+      <div class="game-frame">
+        <iframe 
+          src="https://funhtml5games.com/?embed=flappy"
+          scrolling="no">
+        </iframe>
+      </div>
 
     </div>
   </div>
 
-<div class="box">
-<a href="index.html">← Back Home</a>
-</div>
+  <div class="bottom-link">
+    <a href="index.html">← Back Home</a>
+  </div>
 
 </div>
 
@@ -233,13 +245,13 @@ gameBox.addEventListener("click", function(e){
   e.stopPropagation();
 });
 
-/* overlay click */
+/* overlay */
 const overlay = document.getElementById("overlay");
 overlay.addEventListener("click", function(){
   overlay.style.display = "none";
 });
 
-/* food spawning */
+/* food */
 document.addEventListener("click", function(e){
   for(let i = 0; i < 4; i++){
     createFood(e.clientX, e.clientY + i * 6);
