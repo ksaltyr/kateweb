@@ -6,9 +6,7 @@
 <title>KATE WEBSITE</title>
   
 <link rel="icon" type="image" href="favicon.gif">
-  
 <link rel="shortcut icon" type="image" href="favicon.gif">
-  
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -24,6 +22,7 @@ font-family: Verdana, Geneva, sans-serif;
 background-image:url("fish2.jpg");
 background-repeat:repeat;
 background-size:120px;
+overflow-x:hidden;
 }
 
 .page{
@@ -35,64 +34,82 @@ padding:0 20px;
 .box{
 background:white;
 border:2px solid black;
-padding:18px;
-margin-bottom:18px;
+padding:16px;
+margin-bottom:14px;
 }
 
+/* header */
 .header{
 display:flex;
 align-items:center;
-gap:14px;
+gap:12px;
 }
 
 .header img{
-width:40px;
+width:36px;
 image-rendering:pixelated;
 }
 
 h1{
 margin:0;
-font-size:28px;
+font-size:26px;
 font-weight:normal;
 }
 
 .subtitle{
-margin-top:4px;
+margin-top:2px;
+font-size:13px;
 }
 
+/* NAV GLOW UP */
 .menu{
-cursor:pointer;
-transition:background .15s;
+padding:10px 12px;
+transition:background .12s;
 }
 
 .menu:hover{
-background:#f2f2f2;
+background:#f7f7f7;
 }
 
 .menu a{
-display:block;
-text-decoration:none;
-color:black;
-font-size:20px;
-}
-  
-.menu a{
 display:flex;
 align-items:center;
-gap:10px;
-font-size:18px;
+gap:8px;
+font-size:15px;
 text-decoration:none;
 color:black;
 }
 
 .menu-icon{
-width:44px;
+width:26px;
 image-rendering:pixelated;
 }
- 
-body{
-overflow-x:hidden;
+
+/* subtle divider feel */
+.menu + .menu{
+margin-top:-6px;
 }
+
+/* mobile tightening */
+@media (max-width:600px){
+
+  .box{
+    padding:12px;
+    margin-bottom:10px;
+  }
+
+  .menu a{
+    font-size:14px;
+    gap:6px;
+  }
+
+  .menu-icon{
+    width:22px;
+  }
+
+}
+
+/* fish */
 
 #fish{
 position:fixed;
@@ -121,6 +138,7 @@ border-radius:50%;
 z-index:999;
 pointer-events:none;
 }
+
 #fish-banner{
 position:fixed;
 bottom:10px;
@@ -129,11 +147,11 @@ transform:translateX(-50%);
 background:white;
 border:2px solid black;
 padding:6px 12px;
-font-family:Verdana, Geneva, sans-serif;
 font-size:12px;
 z-index:1000;
 pointer-events:none;
 }
+
 </style>
 
 </head>
@@ -143,41 +161,39 @@ pointer-events:none;
 <div class="page">
 
 <div class="box header">
-
 <img src="favicon.gif">
-
 <div>
 <h1>K A T E</h1>
 <div class="subtitle">a Web page online</div>
 </div>
-
 </div>
 
 <div class="box menu">
-<a href="hello.html"><img src="FISHH.gif" class="menu-icon">HELLO</a>
+<a href="hello.html"><img src="FISHH.gif" class="menu-icon">hello</a>
 </div>
 
 <div class="box menu">
-<a href="writing.html"><img src="FISHH.gif" class="menu-icon">WORDS</a>
+<a href="writing.html"><img src="FISHH.gif" class="menu-icon">words</a>
 </div>
 
 <div class="box menu">
-<a href="photos.html"><img src="FISHH.gif" class="menu-icon">PHOTOS</a>
+<a href="photos.html"><img src="FISHH.gif" class="menu-icon">photos</a>
 </div>
 
 <div class="box menu">
-<a href="links.html"><img src="FISHH.gif" class="menu-icon">LINKS</a>
+<a href="links.html"><img src="FISHH.gif" class="menu-icon">links</a>
 </div>
 
-  <div class="box menu">
-<a href="mail.html"><img src="FISHH.gif" class="menu-icon">SEND MAIL!!</a>
+<div class="box menu">
+<a href="mail.html"><img src="FISHH.gif" class="menu-icon">send mail</a>
 </div>
-  
-  <div class="box menu">
-<a href="flappy.html"><img src="FISHH.gif" class="menu-icon">PLAY FLAPPY BIRD</a>
+
+<div class="box menu">
+<a href="flappy.html"><img src="FISHH.gif" class="menu-icon">flappy bird</a>
 </div>
 
 </div>
+
 <img src="clownfish.gif" id="fish" class="facing-left">
 
 <script>
@@ -307,11 +323,11 @@ function swim(){
       targetFood = null;
     } else {
       const mouthX = fishX + 12;
-const mouthY = fishY + 32;
+      const mouthY = fishY + 32;
 
-const dx = targetFood.x - mouthX;
-const dy = targetFood.y - mouthY;
-const d = Math.hypot(dx, dy);
+      const dx = targetFood.x - mouthX;
+      const dy = targetFood.y - mouthY;
+      const d = Math.hypot(dx, dy);
 
       if(dx < 0){
         setDirection("facing-left");
@@ -337,8 +353,10 @@ const d = Math.hypot(dx, dy);
 animateFood();
 swim();
 </script>
-  <div id="fish-banner">
+
+<div id="fish-banner">
 click anywhere 2 feed fish
 </div>
+
 </body>
 </html>
