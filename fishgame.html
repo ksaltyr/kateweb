@@ -285,8 +285,9 @@ const finalScoreText = document.getElementById("finalScoreText");
 const fishImg = new Image();
 fishImg.src = "clownfish.gif";
 
-let gameWidth = canvas.width;
-let gameHeight = canvas.height;
+const gameWidth = canvas.width;
+const gameHeight = canvas.height;
+
 let bestScore = 0;
 
 let fish;
@@ -295,11 +296,24 @@ let corals;
 let bubbles;
 let score;
 let gameOver;
-let frame;
 let gameStarted;
-let speed;
 let pendingScore = null;
 let scoreSubmitted = false;
+
+// time-based vars
+let lastTime = 0;
+let foodTimer = 0;
+let coralTimer = 0;
+let bubbleTimer = 0;
+let difficultyTimer = 0;
+
+// tuning
+const flapStrength = -3.6;
+const gravity = 0.16;
+const foodSpawnEvery = 95;
+const coralSpawnEvery = 140;
+const bubbleSpawnEvery = 22;
+const difficultyEvery = 600;
 
 function resetGame(){
   fish = {
@@ -307,7 +321,7 @@ function resetGame(){
     y: gameHeight / 2,
     width: 42,
     height: 28,
-    Y: 0
+    velocityY: 0
   };
 
   foods = [];
@@ -315,11 +329,14 @@ function resetGame(){
   bubbles = [];
   score = 0;
   gameOver = false;
-  frame = 0;
   gameStarted = false;
-  speed = 2.4;
   pendingScore = null;
   scoreSubmitted = false;
+
+  foodTimer = 0;
+  coralTimer = 0;
+  bubbleTimer = 0;
+  difficultyTimer = 0;
 
   scoreEl.textContent = score;
   bestEl.textContent = bestScore;
@@ -334,12 +351,12 @@ function flap(){
   if(gameOver){
     resetGame();
     gameStarted = true;
-    fish.velocityY = -4.0;
+    fish.velocityY = flapStrength;
     return;
   }
 
   gameStarted = true;
-  fish.velocityY = -4.0;
+  fish.velocityY = flapStrength;
 }
 
 function spawnFood(){
@@ -464,37 +481,45 @@ function triggerGameOver(){
   }
 }
 
-function update(){
-  frame++;
+function update(delta){
+  bubbleTimer += delta;
 
-  if(frame % 22 === 0){
+  if(bubbleTimer >= bubbleSpawnEvery){
     spawnBubble();
+    bubbleTimer -= bubbleSpawnEvery;
   }
 
   if(!gameStarted || gameOver){
-    updateBubbles();
+    updateBubbles(delta);
     return;
   }
 
-  fish.velocityY += 0.22;
-  fish.y += fish.velocityY;
+  foodTimer += delta;
+  coralTimer += delta;
+  difficultyTimer += delta;
 
-  if(frame % 95 === 0){
+  fish.velocityY += gravity * delta;
+  fish.y += fish.velocityY * delta;
+
+  if(foodTimer >= foodSpawnEvery){
     spawnFood();
+    foodTimer -= foodSpawnEvery;
   }
 
-  if(frame % 140 === 0){
+  if(coralTimer >= coralSpawnEvery){
     spawnCoral();
+    coralTimer -= coralSpawnEvery;
   }
 
-  if(frame % 600 === 0){
-    speed += 0.;11
+  if(difficultyTimer >= difficultyEvery){
+    difficultyTimer -= difficultyEvery;
+    baseSpeed += 0.11;
   }
 
-  updateBubbles();
+  updateBubbles(delta);
 
   for(let i = foods.length - 1; i >= 0; i--){
-    foods[i].x -= speed;
+    foods[i].x -= baseSpeed * delta;
 
     if(circleRectOverlap(
       foods[i],
@@ -522,7 +547,7 @@ function update(){
 
   for(let i = corals.length - 1; i >= 0; i--){
     const coral = corals[i];
-    coral.x -= speed;
+    coral.x -= baseSpeed * delta;
 
     const topRect = {
       x: coral.x,
@@ -565,9 +590,11 @@ function update(){
   }
 }
 
-function updateBubbles(){
+let baseSpeed = 2.4;
+
+function updateBubbles(delta){
   for(let i = bubbles.length - 1; i >= 0; i--){
-    bubbles[i].y -= bubbles[i].speed;
+    bubbles[i].y -= bubbles[i].speed * delta;
     if(bubbles[i].y < -10){
       bubbles.splice(i, 1);
     }
@@ -665,8 +692,19 @@ function draw(){
   drawText();
 }
 
-function loop(){
-  update();
+function loop(timestamp){
+  if(!lastTime){
+    lastTime = timestamp;
+  }
+
+  let delta = (timestamp - lastTime) / 16.6667;
+  lastTime = timestamp;
+
+  if(delta > 2){
+    delta = 2;
+  }
+
+  update(delta);
   draw();
   requestAnimationFrame(loop);
 }
@@ -696,6 +734,7 @@ nameInput.addEventListener("input", function(){
 
 restartBtn.addEventListener("click", function(){
   resetGame();
+  baseSpeed = 2.4;
 });
 
 saveNameBtn.addEventListener("click", function(){
@@ -708,7 +747,7 @@ skipNameBtn.addEventListener("click", function(){
 
 resetGame();
 loadScores();
-loop();
+requestAnimationFrame(loop);
 </script>
 
 </body>
