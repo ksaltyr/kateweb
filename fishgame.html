@@ -307,7 +307,7 @@ function resetGame(){
     y: gameHeight / 2,
     width: 42,
     height: 28,
-    velocityY: 0
+    Y: 0
   };
 
   foods = [];
@@ -476,7 +476,7 @@ function update(){
     return;
   }
 
-  fish.velocityY += 0.20;
+  fish.velocityY += 0.22;
   fish.y += fish.velocityY;
 
   if(frame % 95 === 0){
