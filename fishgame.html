@@ -270,6 +270,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
 
 const scoreEl = document.getElementById("SCORE");
 const bestEl = document.getElementById("BEST");
@@ -289,6 +290,7 @@ const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 
 let bestScore = 0;
+let baseSpeed = 3.6;
 
 let fish;
 let foods;
@@ -300,20 +302,18 @@ let gameStarted;
 let pendingScore = null;
 let scoreSubmitted = false;
 
-// time-based vars
 let lastTime = 0;
 let foodTimer = 0;
 let coralTimer = 0;
 let bubbleTimer = 0;
 let difficultyTimer = 0;
 
-// tuning
-const flapStrength = -3.6;
-const gravity = 0.16;
-const foodSpawnEvery = 95;
-const coralSpawnEvery = 140;
-const bubbleSpawnEvery = 22;
-const difficultyEvery = 600;
+const flapStrength = -4.8;
+const gravity = 0.24;
+const foodSpawnEvery = 80;
+const coralSpawnEvery = 110;
+const bubbleSpawnEvery = 40;
+const difficultyEvery = 480;
 
 function resetGame(){
   fish = {
@@ -337,6 +337,7 @@ function resetGame(){
   coralTimer = 0;
   bubbleTimer = 0;
   difficultyTimer = 0;
+  baseSpeed = 3.6;
 
   scoreEl.textContent = score;
   bestEl.textContent = bestScore;
@@ -381,11 +382,15 @@ function spawnCoral(){
 }
 
 function spawnBubble(){
+  if(bubbles.length > 12){
+    return;
+  }
+
   bubbles.push({
     x: Math.random() * gameWidth,
     y: gameHeight + 10,
-    r: 2 + Math.random() * 4,
-    speed: 0.4 + Math.random() * 0.8
+    r: 2 + Math.random() * 3,
+    speed: 0.4 + Math.random() * 0.6
   });
 }
 
@@ -513,7 +518,7 @@ function update(delta){
 
   if(difficultyTimer >= difficultyEvery){
     difficultyTimer -= difficultyEvery;
-    baseSpeed += 0.11;
+    baseSpeed += 0.18;
   }
 
   updateBubbles(delta);
@@ -590,8 +595,6 @@ function update(delta){
   }
 }
 
-let baseSpeed = 2.4;
-
 function updateBubbles(delta){
   for(let i = bubbles.length - 1; i >= 0; i--){
     bubbles[i].y -= bubbles[i].speed * delta;
@@ -631,17 +634,13 @@ function drawFoodItem(food){
 function drawCoralPiece(coral){
   ctx.fillStyle = "#1f7a5c";
 
-  for(let y = 0; y < coral.gapY; y += 16){
-    ctx.fillRect(coral.x, y, coral.width, 12);
-    ctx.fillRect(coral.x - 4, y + 4, 6, 6);
-    ctx.fillRect(coral.x + coral.width - 2, y + 2, 6, 6);
-  }
-
-  for(let y = coral.gapY + coral.gapHeight; y < gameHeight; y += 16){
-    ctx.fillRect(coral.x, y, coral.width, 12);
-    ctx.fillRect(coral.x - 4, y + 4, 6, 6);
-    ctx.fillRect(coral.x + coral.width - 2, y + 2, 6, 6);
-  }
+  ctx.fillRect(coral.x, 0, coral.width, coral.gapY);
+  ctx.fillRect(
+    coral.x,
+    coral.gapY + coral.gapHeight,
+    coral.width,
+    gameHeight - (coral.gapY + coral.gapHeight)
+  );
 }
 
 function drawFish(){
@@ -734,7 +733,6 @@ nameInput.addEventListener("input", function(){
 
 restartBtn.addEventListener("click", function(){
   resetGame();
-  baseSpeed = 2.4;
 });
 
 saveNameBtn.addEventListener("click", function(){
