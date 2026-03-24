@@ -334,12 +334,12 @@ function flap(){
   if(gameOver){
     resetGame();
     gameStarted = true;
-    fish.velocityY = -3.9;
+    fish.velocityY = -4.0;
     return;
   }
 
   gameStarted = true;
-  fish.velocityY = -3.9;
+  fish.velocityY = -4.0;
 }
 
 function spawnFood(){
@@ -476,7 +476,7 @@ function update(){
     return;
   }
 
-  fish.velocityY += 0.16;
+  fish.velocityY += 0.18;
   fish.y += fish.velocityY;
 
   if(frame % 95 === 0){
