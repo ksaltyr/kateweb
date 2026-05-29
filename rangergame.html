@@ -248,7 +248,7 @@ pointer-events:none;
 <div class="game-title">FORD RANGER YEAR GUESSER</div>
 
 <div class="tiny">
-A randomized Ford Ranger appears. Guess the model year. 1983–2011. Customized trucks may be spiritually misleading.
+A randomized Ford Ranger appears. Guess the model year. 1983–2011.
 </div>
 
 <div class="truck-wrap">
@@ -261,7 +261,6 @@ image missing. add the file path to the folder correctly, truck goblin.
 <div class="controls">
 <input id="guessInput" type="number" min="1983" max="2011" placeholder="year">
 <button id="guessButton">GUESS</button>
-<button id="hintButton">HINT</button>
 <button id="nextButton">NEXT TRUCK</button>
 </div>
 
@@ -294,127 +293,175 @@ ranger danger
 
 <script>
 
-/*
-ADD YOUR TRUCK PHOTOS HERE.
-
-Make a folder called "rangers" next to this HTML file.
-
-Example:
-kateweb.site/
-  rangergame.html
-  rangers/
-    1983-red.jpg
-    1989-blue.jpg
-    1994-green.jpg
-
-Then update the image paths below.
-*/
 
 const trucks = [
   {
-    year: 1983,
-    image: "rangers/1983-red.jpg",
-    label: "1983 Ford Ranger",
-    era: "first generation, early",
-    hint: "boxy little creature. very early Ranger. 1983–1988 range."
+    year: 1984,
+    image: "rangers/1984-red.jpg",
+    label: "1984 Ford Ranger",
+    era: "first generation, early"
+  },
+  {
+    year: 1984,
+    image: "rangers/1984-blue.jpg",
+    label: "1984 Ford Ranger",
+    era: "first generation, early"
   },
   {
     year: 1986,
-    image: "rangers/1986-blue.jpg",
+    image: "rangers/1986-lightblue.jpg",
     label: "1986 Ford Ranger",
-    era: "first generation, early",
-    hint: "still first-gen, pre-1989 facelift. brick-adjacent."
+    era: "first generation, early"
+  },
+   {
+    year: 1987,
+    image: "rangers/1987-blue.jpg",
+    label: "1987 Ford Ranger",
+    era: "first generation, early"
   },
   {
-    year: 1989,
-    image: "rangers/1989-black.jpg",
-    label: "1989 Ford Ranger",
-    era: "first generation facelift",
-    hint: "first-gen facelift. think 1989–1992."
+    year: 1987,
+    image: "rangers/1987-silver.jpg",
+    label: "1987 Ford Ranger",
+    era: "first generation, early"
   },
   {
-    year: 1992,
-    image: "rangers/1992-white.jpg",
-    label: "1992 Ford Ranger",
-    era: "first generation facelift",
-    hint: "last breath of the first-gen body style."
+    year: 1988,
+    image: "rangers/1988-white.jpg",
+    label: "1988 Ford Ranger",
+    era: "first generation, early"
   },
   {
     year: 1993,
-    image: "rangers/1993-red.jpg",
+    image: "rangers/1993-yellow.jpg",
     label: "1993 Ford Ranger",
-    era: "second generation",
-    hint: "new rounded 90s shape. second gen starts here."
+    era: "second generation"
   },
   {
     year: 1994,
-    image: "rangers/1994-green.jpg",
+    image: "rangers/1994-green.JPG",
     label: "1994 Ford Ranger",
-    era: "second generation",
-    hint: "Peak 90s compact truck energy. 1993–1997 range."
+    era: "second generation"
+  },
+   {
+    year: 1994,
+    image: "rangers/1994-blue.JPG",
+    label: "1994 Ford Ranger",
+    era: "second generation"
+  },
+   {
+    year: 1994,
+    image: "rangers/1994-greensplash.jpg",
+    label: "1994 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1994,
+    image: "rangers/1994-bluesplash.jpg",
+    label: "1994 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1994,
+    image: "rangers/1994-tan.jpg",
+    label: "1994 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1995,
+    image: "rangers/1995-darkblue.jpg",
+    label: "1995 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1996,
+    image: "rangers/1996-black.JPG",
+    label: "1996 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1996,
+    image: "rangers/1996-tan.JPG",
+    label: "1996 Ford Ranger",
+    era: "second generation"
+  },
+  {
+    year: 1996,
+    image: "rangers/1996-silver.jpg",
+    label: "1996 Ford Ranger",
+    era: "second generation"
+  },
+   {
+    year: 1996,
+    image: "rangers/1996-darkgreen.jpg",
+    label: "1996 Ford Ranger",
+    era: "second generation"
+  },
+   {
+    year: 1997,
+    image: "rangers/1997-black.jpg",
+    label: "1997 Ford Ranger",
+    era: "second generation"
   },
   {
     year: 1997,
-    image: "rangers/1997-silver.jpg",
+    image: "rangers/1997-white.jpg",
     label: "1997 Ford Ranger",
-    era: "second generation",
-    hint: "late second-gen. right before the 1998 redesign."
+    era: "second generation"
   },
   {
     year: 1998,
     image: "rangers/1998-white.jpg",
     label: "1998 Ford Ranger",
-    era: "third generation, early",
-    hint: "third-gen begins. late-90s rounded but still tiny."
+    era: "third generation, early"
   },
   {
     year: 2000,
-    image: "rangers/2000-gold.jpg",
-    label: "2000 Ford Ranger",
-    era: "third generation, early",
-    hint: "early third-gen. before the 2001 front-end update."
+    image: "rangers/2001-darkgray.jpg",
+    label: "2001 Ford Ranger",
+    era: "third generation, early"
   },
   {
-    year: 2001,
-    image: "rangers/2001-black.jpg",
+    year: 2000,
+    image: "rangers/2001-red.jpg",
     label: "2001 Ford Ranger",
-    era: "third generation facelift",
-    hint: "2001 facelift. the truck has entered Y2K consciousness."
+    era: "third generation, early"
+  },
+  {
+    year: 2000,
+    image: "rangers/2001-red2.jpg",
+    label: "2001 Ford Ranger",
+    era: "third generation, early"
+  },
+  {
+    year: 2002,
+    image: "rangers/2002-silver.jpg",
+    label: "2002 Ford Ranger",
+    era: "third generation, early"
   },
   {
     year: 2003,
-    image: "rangers/2003-blue.jpg",
-    label: "2003 Ford Ranger",
-    era: "third generation facelift",
-    hint: "early-2000s facelift. 2001–2003-ish."
-  },
-  {
-    year: 2004,
-    image: "rangers/2004-red.jpg",
+    image: "rangers/2004-tan.jpg",
     label: "2004 Ford Ranger",
     era: "third generation update",
-    hint: "mid-2000s Ranger. looks like it has opinions about drywall."
   },
   {
     year: 2006,
-    image: "rangers/2006-gray.jpg",
+    image: "rangers/2005-white.jpg",
     label: "2006 Ford Ranger",
     era: "late third generation",
-    hint: "late compact Ranger. 2006–2011 range."
   },
   {
     year: 2008,
-    image: "rangers/2008-silver.jpg",
+    image: "rangers/2009-silver.jpg",
     label: "2008 Ford Ranger",
     era: "late third generation",
-    hint: "late-run Ranger. basically refusing to die."
   },
   {
     year: 2011,
     image: "rangers/2011-white.jpg",
     label: "2011 Ford Ranger",
-    era: "final retail model year",
-    hint: "final main U.S. model year before hiatus. ominous."
+    era: "final retail model year b4 hiatus",
   }
 ];
 
@@ -438,7 +485,6 @@ const averageMissEl = document.getElementById("averageMiss");
 const bestGuessEl = document.getElementById("bestGuess");
 
 document.getElementById("guessButton").addEventListener("click", submitGuess);
-document.getElementById("hintButton").addEventListener("click", showHint);
 document.getElementById("nextButton").addEventListener("click", nextTruck);
 
 guessInput.addEventListener("keydown", function(e){
@@ -542,15 +588,6 @@ function submitGuess(){
     "Round score: " + roundScore;
 
   updateScore();
-}
-
-function showHint(){
-  if(hasGuessedThisRound){
-    result.innerHTML += "<div class='fact'>Hint after guessing is spiritually useless, but okay: " + currentTruck.hint + "</div>";
-    return;
-  }
-
-  result.innerHTML = "<strong>Hint:</strong> " + currentTruck.hint;
 }
 
 function updateScore(){
