@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>RANGER GAME</title>
+
+<link rel="icon" type="image" href="favicon.gif">
+<link rel="shortcut icon" type="image" href="favicon.gif">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+padding:0;
+font-family: Verdana, Geneva, sans-serif;
+background-image:url("fish2.jpg");
+background-repeat:repeat;
+background-size:120px;
+overflow-x:hidden;
+}
+
+.page{
+max-width:720px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.box{
+background:white;
+border:2px solid black;
+padding:16px;
+margin-bottom:14px;
+}
+
+.header{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.header img{
+width:36px;
+image-rendering:pixelated;
+}
+
+h1{
+margin:0;
+font-size:26px;
+font-weight:normal;
+}
+
+.subtitle{
+margin-top:2px;
+font-size:13px;
+}
+
+.menu{
+padding:10px 12px;
+transition:background .12s;
+}
+
+.menu:hover{
+background:#f7f7f7;
+}
+
+.menu a{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:15px;
+text-decoration:none;
+color:black;
+}
+
+.menu-icon{
+width:26px;
+image-rendering:pixelated;
+}
+
+.menu + .menu{
+margin-top:-6px;
+}
+
+.game-title{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.truck-wrap{
+background:#f3f3f3;
+border:2px solid black;
+padding:8px;
+margin-top:12px;
+}
+
+#truckImage{
+display:block;
+width:100%;
+max-height:420px;
+object-fit:contain;
+background:#ddd;
+}
+
+.missing-image{
+padding:60px 12px;
+font-size:14px;
+background:#eee;
+border:2px dashed black;
+display:none;
+}
+
+.controls{
+margin-top:14px;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+align-items:center;
+}
+
+input{
+font-family: Verdana, Geneva, sans-serif;
+font-size:16px;
+border:2px solid black;
+padding:8px;
+width:110px;
+}
+
+button{
+font-family: Verdana, Geneva, sans-serif;
+font-size:14px;
+background:white;
+border:2px solid black;
+padding:8px 10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#f7f7f7;
+}
+
+.result{
+font-size:14px;
+line-height:1.45;
+margin-top:12px;
+min-height:70px;
+}
+
+.scorebar{
+font-size:12px;
+line-height:1.5;
+}
+
+.tiny{
+font-size:11px;
+line-height:1.4;
+opacity:.8;
+}
+
+.fact{
+font-size:12px;
+line-height:1.45;
+background:#fafafa;
+border:1px solid black;
+padding:8px;
+margin-top:10px;
+}
+
+@media (max-width:600px){
+
+  .box{
+    padding:12px;
+    margin-bottom:10px;
+  }
+
+  .menu a{
+    font-size:14px;
+    gap:6px;
+  }
+
+  .menu-icon{
+    width:22px;
+  }
+
+  .controls{
+    display:block;
+  }
+
+  input, button{
+    margin-top:6px;
+  }
+
+}
+
+#fish{
+position:fixed;
+top:80vh;
+width:120px;
+image-rendering:pixelated;
+z-index:998;
+pointer-events:none;
+}
+
+.facing-left{
+transform:scaleX(-1);
+}
+
+#fish-banner{
+position:fixed;
+bottom:10px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+border:2px solid black;
+padding:6px 12px;
+font-size:12px;
+z-index:1000;
+pointer-events:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="box header">
+<img src="favicon.gif">
+<div>
+<h1>K A T E</h1>
+<div class="subtitle">a Web page online</div>
+</div>
+</div>
+
+<div class="box menu">
+<a href="index.html"><img src="FISHH.gif" class="menu-icon">BACK HOME</a>
+</div>
+
+<div class="box">
+
+<div class="game-title">FORD RANGER YEAR GUESSER</div>
+
+<div class="tiny">
+A randomized Ford Ranger appears. Guess the model year. 1983–2011. Customized trucks may be spiritually misleading.
+</div>
+
+<div class="truck-wrap">
+<img id="truckImage" src="" alt="Ford Ranger truck">
+<div id="missingImage" class="missing-image">
+image missing. add the file path to the folder correctly, truck goblin.
+</div>
+</div>
+
+<div class="controls">
+<input id="guessInput" type="number" min="1983" max="2011" placeholder="year">
+<button id="guessButton">GUESS</button>
+<button id="hintButton">HINT</button>
+<button id="nextButton">NEXT TRUCK</button>
+</div>
+
+<div id="result" class="result">
+Type a year and hit GUESS.
+</div>
+
+</div>
+
+<div class="box scorebar">
+<div><strong>Score:</strong> <span id="score">0</span></div>
+<div><strong>Guesses:</strong> <span id="guesses">0</span></div>
+<div><strong>Average miss:</strong> <span id="averageMiss">0</span> years</div>
+<div><strong>Best guess:</strong> <span id="bestGuess">none yet</span></div>
+</div>
+
+<div class="box tiny">
+<strong>How to add trucks:</strong><br>
+Put your images in a folder called <strong>rangers</strong>. Then edit the <strong>trucks</strong> list in the script.
+Example filename: <strong>rangers/1994-green-xlt.jpg</strong>.
+</div>
+
+</div>
+
+<img src="clownfish.gif" id="fish" class="facing-left">
+
+<div id="fish-banner">
+ranger danger
+</div>
+
+<script>
+
+/*
+ADD YOUR TRUCK PHOTOS HERE.
+
+Make a folder called "rangers" next to this HTML file.
+
+Example:
+kateweb.site/
+  rangergame.html
+  rangers/
+    1983-red.jpg
+    1989-blue.jpg
+    1994-green.jpg
+
+Then update the image paths below.
+*/
+
+const trucks = [
+  {
+    year: 1983,
+    image: "rangers/1983-red.jpg",
+    label: "1983 Ford Ranger",
+    era: "first generation, early",
+    hint: "boxy little creature. very early Ranger. 1983–1988 range."
+  },
+  {
+    year: 1986,
+    image: "rangers/1986-blue.jpg",
+    label: "1986 Ford Ranger",
+    era: "first generation, early",
+    hint: "still first-gen, pre-1989 facelift. brick-adjacent."
+  },
+  {
+    year: 1989,
+    image: "rangers/1989-black.jpg",
+    label: "1989 Ford Ranger",
+    era: "first generation facelift",
+    hint: "first-gen facelift. think 1989–1992."
+  },
+  {
+    year: 1992,
+    image: "rangers/1992-white.jpg",
+    label: "1992 Ford Ranger",
+    era: "first generation facelift",
+    hint: "last breath of the first-gen body style."
+  },
+  {
+    year: 1993,
+    image: "rangers/1993-red.jpg",
+    label: "1993 Ford Ranger",
+    era: "second generation",
+    hint: "new rounded 90s shape. second gen starts here."
+  },
+  {
+    year: 1994,
+    image: "rangers/1994-green.jpg",
+    label: "1994 Ford Ranger",
+    era: "second generation",
+    hint: "Peak 90s compact truck energy. 1993–1997 range."
+  },
+  {
+    year: 1997,
+    image: "rangers/1997-silver.jpg",
+    label: "1997 Ford Ranger",
+    era: "second generation",
+    hint: "late second-gen. right before the 1998 redesign."
+  },
+  {
+    year: 1998,
+    image: "rangers/1998-white.jpg",
+    label: "1998 Ford Ranger",
+    era: "third generation, early",
+    hint: "third-gen begins. late-90s rounded but still tiny."
+  },
+  {
+    year: 2000,
+    image: "rangers/2000-gold.jpg",
+    label: "2000 Ford Ranger",
+    era: "third generation, early",
+    hint: "early third-gen. before the 2001 front-end update."
+  },
+  {
+    year: 2001,
+    image: "rangers/2001-black.jpg",
+    label: "2001 Ford Ranger",
+    era: "third generation facelift",
+    hint: "2001 facelift. the truck has entered Y2K consciousness."
+  },
+  {
+    year: 2003,
+    image: "rangers/2003-blue.jpg",
+    label: "2003 Ford Ranger",
+    era: "third generation facelift",
+    hint: "early-2000s facelift. 2001–2003-ish."
+  },
+  {
+    year: 2004,
+    image: "rangers/2004-red.jpg",
+    label: "2004 Ford Ranger",
+    era: "third generation update",
+    hint: "mid-2000s Ranger. looks like it has opinions about drywall."
+  },
+  {
+    year: 2006,
+    image: "rangers/2006-gray.jpg",
+    label: "2006 Ford Ranger",
+    era: "late third generation",
+    hint: "late compact Ranger. 2006–2011 range."
+  },
+  {
+    year: 2008,
+    image: "rangers/2008-silver.jpg",
+    label: "2008 Ford Ranger",
+    era: "late third generation",
+    hint: "late-run Ranger. basically refusing to die."
+  },
+  {
+    year: 2011,
+    image: "rangers/2011-white.jpg",
+    label: "2011 Ford Ranger",
+    era: "final retail model year",
+    hint: "final main U.S. model year before hiatus. ominous."
+  }
+];
+
+let currentTruck = null;
+let usedIndexes = [];
+let hasGuessedThisRound = false;
+
+let totalScore = 0;
+let totalGuesses = 0;
+let totalMiss = 0;
+let bestMiss = null;
+
+const truckImage = document.getElementById("truckImage");
+const missingImage = document.getElementById("missingImage");
+const guessInput = document.getElementById("guessInput");
+const result = document.getElementById("result");
+
+const scoreEl = document.getElementById("score");
+const guessesEl = document.getElementById("guesses");
+const averageMissEl = document.getElementById("averageMiss");
+const bestGuessEl = document.getElementById("bestGuess");
+
+document.getElementById("guessButton").addEventListener("click", submitGuess);
+document.getElementById("hintButton").addEventListener("click", showHint);
+document.getElementById("nextButton").addEventListener("click", nextTruck);
+
+guessInput.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    submitGuess();
+  }
+});
+
+truckImage.addEventListener("error", function(){
+  truckImage.style.display = "none";
+  missingImage.style.display = "block";
+});
+
+truckImage.addEventListener("load", function(){
+  truckImage.style.display = "block";
+  missingImage.style.display = "none";
+});
+
+function getRandomIndex(){
+  if(usedIndexes.length >= trucks.length){
+    usedIndexes = [];
+  }
+
+  let index;
+
+  do{
+    index = Math.floor(Math.random() * trucks.length);
+  } while(usedIndexes.includes(index));
+
+  usedIndexes.push(index);
+  return index;
+}
+
+function nextTruck(){
+  const index = getRandomIndex();
+  currentTruck = trucks[index];
+  hasGuessedThisRound = false;
+
+  result.innerHTML = "Type a year and hit GUESS.";
+  guessInput.value = "";
+  guessInput.focus();
+
+  truckImage.style.display = "block";
+  missingImage.style.display = "none";
+  truckImage.src = currentTruck.image;
+  truckImage.alt = "Ford Ranger truck";
+}
+
+function submitGuess(){
+  const guess = Number(guessInput.value);
+
+  if(!guess || guess < 1983 || guess > 2011){
+    result.innerHTML = "Enter a year from 1983 to 2011.";
+    return;
+  }
+
+  if(hasGuessedThisRound){
+    result.innerHTML = "You already guessed this one. Hit NEXT TRUCK.";
+    return;
+  }
+
+  hasGuessedThisRound = true;
+
+  const actual = currentTruck.year;
+  const miss = Math.abs(guess - actual);
+
+  let roundScore = Math.max(0, 100 - miss * 8);
+
+  if(miss === 0){
+    roundScore += 25;
+  }
+
+  totalScore += roundScore;
+  totalGuesses++;
+  totalMiss += miss;
+
+  if(bestMiss === null || miss < bestMiss){
+    bestMiss = miss;
+  }
+
+  let judgment;
+
+  if(miss === 0){
+    judgment = "EXACT.";
+  } else if(miss <= 2){
+    judgment = "Very close..";
+  } else if(miss <= 5){
+    judgment = "Close enough for FB Marketplace.";
+  } else if(miss <= 10){
+    judgment = "Not great, not criminal.";
+  } else {
+    judgment = "Bad. Really bad.";
+  }
+
+  result.innerHTML =
+    "<strong>" + judgment + "</strong><br>" +
+    "Your guess: " + guess + "<br>" +
+    "Actual year: " + actual + "<br>" +
+    "Missed by: " + miss + " year" + (miss === 1 ? "" : "s") + "<br>" +
+    "Era: " + currentTruck.era + "<br>" +
+    "Round score: " + roundScore;
+
+  updateScore();
+}
+
+function showHint(){
+  if(hasGuessedThisRound){
+    result.innerHTML += "<div class='fact'>Hint after guessing is spiritually useless, but okay: " + currentTruck.hint + "</div>";
+    return;
+  }
+
+  result.innerHTML = "<strong>Hint:</strong> " + currentTruck.hint;
+}
+
+function updateScore(){
+  const average = totalGuesses === 0 ? 0 : (totalMiss / totalGuesses).toFixed(1);
+
+  scoreEl.textContent = totalScore;
+  guessesEl.textContent = totalGuesses;
+  averageMissEl.textContent = average;
+
+  if(bestMiss === null){
+    bestGuessEl.textContent = "none yet";
+  } else if(bestMiss === 0){
+    bestGuessEl.textContent = "exact year";
+  } else {
+    bestGuessEl.textContent = "off by " + bestMiss + " year" + (bestMiss === 1 ? "" : "s");
+  }
+}
+
+/* little decorative fish from your site, simplified */
+
+const fish = document.getElementById("fish");
+
+let fishX = window.innerWidth + 80;
+let fishY = window.innerHeight * 0.8;
+let fishSpeed = 1.1;
+
+function updateFish(){
+  fish.style.left = fishX + "px";
+  fish.style.top = fishY + "px";
+}
+
+function swim(){
+  fishX -= fishSpeed;
+
+  if(fishX < -130){
+    fishX = window.innerWidth + 90;
+    fishY = window.innerHeight * (0.68 + Math.random() * 0.2);
+  }
+
+  updateFish();
+  requestAnimationFrame(swim);
+}
+
+nextTruck();
+swim();
+
+</script>
+
+</body>
+</html>
