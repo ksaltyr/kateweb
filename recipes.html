@@ -987,7 +987,20 @@ closeRecipe(overlay.id);
 }
 
 });
+/* FORCE LAPTOP TRACKPAD / MOUSE WHEEL SCROLLING */
 
+document.querySelectorAll(".card-content").forEach(function(content){
+
+content.addEventListener("wheel", function(event){
+
+event.preventDefault();
+
+content.scrollTop += event.deltaY;
+
+}, { passive: false });
+
+});
+  
 </script>
 
 
