@@ -64,24 +64,24 @@ a:hover{
 text-decoration:underline;
 }
 
-
-/* RECIPE PAGE */
-
 .recipe-intro{
 font-size:13px;
 margin-top:6px;
 margin-bottom:0;
 }
 
+
+/* RECIPE GRID */
+
 .recipe-grid{
 display:grid;
-grid-template-columns:repeat(2, 1fr);
+grid-template-columns:repeat(2,1fr);
 gap:22px;
 padding:8px 2px;
 }
 
 
-/* LITTLE CLOSED RECIPE CARDS */
+/* CLOSED CARDS */
 
 .recipe-preview{
 background:#f7f3e8;
@@ -91,7 +91,7 @@ padding:18px;
 cursor:pointer;
 position:relative;
 box-shadow:2px 3px 0 rgba(0,0,0,.12);
-transition:transform .15s ease, box-shadow .15s ease;
+
 background-image:
 repeating-linear-gradient(
 to bottom,
@@ -99,6 +99,8 @@ transparent,
 transparent 27px,
 rgba(120,150,170,.18) 28px
 );
+
+transition:transform .15s ease, box-shadow .15s ease;
 }
 
 .recipe-preview:nth-child(odd){
@@ -136,7 +138,7 @@ font-size:19px;
 }
 
 
-/* DARKENED BACKGROUND WHEN OPEN */
+/* OVERLAY */
 
 .overlay{
 display:none;
@@ -158,7 +160,7 @@ display:flex;
 }
 
 
-/* FLIPPING CARD */
+/* RECIPE CARD */
 
 .card{
 width:520px;
@@ -320,14 +322,14 @@ padding:24px 20px;
 <div class="recipe-grid">
 
 
-<!-- RECIPE ONE -->
+<!-- BANANA BREAD -->
 
 <div class="recipe-preview"
-onclick="openRecipe('cookies')">
+onclick="openRecipe('banana')">
 
-<h2>chocolate chip cookies</h2>
+<h2>banana bread</h2>
 
-<p>sweet / baked too many times</p>
+<p>sweet / bread / chocolate</p>
 
 <span class="open-symbol">+</span>
 
@@ -335,14 +337,14 @@ onclick="openRecipe('cookies')">
 
 
 
-<!-- RECIPE TWO -->
+<!-- CINNAMON ROLLS -->
 
 <div class="recipe-preview"
-onclick="openRecipe('focaccia')">
+onclick="openRecipe('rolls')">
 
-<h2>focaccia</h2>
+<h2>orange cardamom cinnamon rolls</h2>
 
-<p>bread / ★ really good</p>
+<p>sweet / breakfast / worth the effort</p>
 
 <span class="open-symbol">+</span>
 
@@ -350,14 +352,44 @@ onclick="openRecipe('focaccia')">
 
 
 
-<!-- RECIPE THREE -->
+<!-- WHITE BEAN PUREE -->
 
 <div class="recipe-preview"
-onclick="openRecipe('soup')">
+onclick="openRecipe('beans')">
 
-<h2>tomato soup</h2>
+<h2>white bean purée</h2>
 
-<p>dinner / easy</p>
+<p>savory / restaurant recipe</p>
+
+<span class="open-symbol">+</span>
+
+</div>
+
+
+
+<!-- BLOODY MARY -->
+
+<div class="recipe-preview"
+onclick="openRecipe('bloodymary')">
+
+<h2>bloody mary mix</h2>
+
+<p>savory / spicy / restaurant recipe</p>
+
+<span class="open-symbol">+</span>
+
+</div>
+
+
+
+<!-- FARM RANCH -->
+
+<div class="recipe-preview"
+onclick="openRecipe('ranch')">
+
+<h2>farm ranch</h2>
+
+<p>dressing / restaurant recipe</p>
 
 <span class="open-symbol">+</span>
 
@@ -375,16 +407,17 @@ onclick="openRecipe('soup')">
 
 </div>
 
-
 </div>
 
 
 
-<!-- ======================== -->
-<!-- CHOCOLATE CHIP COOKIES -->
-<!-- ======================== -->
 
-<div class="overlay" id="cookies">
+
+<!-- ================= -->
+<!-- BANANA BREAD -->
+<!-- ================= -->
+
+<div class="overlay" id="banana">
 
 <div class="card">
 
@@ -393,26 +426,29 @@ onclick="openRecipe('soup')">
 
 <div class="card-side card-front">
 
-<button class="close" onclick="closeRecipe('cookies')">×</button>
+<button class="close" onclick="closeRecipe('banana')">×</button>
 
-<h2>chocolate chip cookies</h2>
+<h2>banana bread</h2>
 
 <h3>ingredients</h3>
 
 <ul>
-<li>1 cup butter</li>
-<li>1 cup brown sugar</li>
-<li>1/2 cup white sugar</li>
-<li>2 eggs</li>
-<li>2 1/4 cups flour</li>
-<li>1 tsp baking soda</li>
-<li>1 tsp vanilla</li>
-<li>chocolate chips</li>
+<li>3 ripe bananas, mashed</li>
+<li>113 g unsalted butter</li>
+<li>2 large eggs, room temperature</li>
+<li>105 g granulated sugar</li>
+<li>118 g packed light brown sugar</li>
+<li>270 g all-purpose flour</li>
+<li>130 g sour cream</li>
+<li>125 g semi-sweet chocolate chips</li>
+<li>2 tsp vanilla extract</li>
+<li>6 g baking soda</li>
+<li>1/4 tsp salt</li>
 </ul>
 
-<p class="note">note: better slightly underbaked</p>
+<p class="note">350°F / 9×5 loaf pan</p>
 
-<button class="flip" onclick="flipCard('cookies')">
+<button class="flip" onclick="flipCard('banana')">
 flip card ↻
 </button>
 
@@ -422,26 +458,251 @@ flip card ↻
 
 <div class="card-side card-back">
 
-<button class="close" onclick="closeRecipe('cookies')">×</button>
+<button class="close" onclick="closeRecipe('banana')">×</button>
 
-<h2>chocolate chip cookies</h2>
+<h2>banana bread</h2>
 
 <h3>instructions</h3>
 
 <ol>
-<li>Brown the butter and let it cool.</li>
-<li>Mix the butter with both sugars.</li>
-<li>Add eggs and vanilla.</li>
-<li>Mix in the dry ingredients.</li>
-<li>Fold in chocolate chips.</li>
-<li>Bake at 350°F for about 10–12 minutes.</li>
+<li>Preheat oven to 350°F. Grease or line a 9×5-inch loaf pan.</li>
+
+<li>Mash the bananas in a large bowl until mostly smooth.</li>
+
+<li>Melt the butter and let it cool slightly.</li>
+
+<li>Whisk the melted butter with the granulated sugar and brown sugar.</li>
+
+<li>Add the eggs, vanilla, sour cream and mashed bananas. Mix until combined.</li>
+
+<li>In a separate bowl, whisk together the flour, baking soda and salt.</li>
+
+<li>Fold the dry ingredients into the wet ingredients until just combined. Don't overmix.</li>
+
+<li>Fold in the chocolate chips.</li>
+
+<li>Pour the batter into the prepared loaf pan. Sprinkle a few extra chocolate chips on top if desired.</li>
+
+<li>Bake for about 45 minutes, or until a toothpick inserted in the center comes out with a few moist crumbs. Add a few minutes if needed.</li>
+
+<li>Cool in the pan for about 15 minutes before removing.</li>
+</ol>
+
+<p class="note">better slightly underdone than dry imo</p>
+
+<button class="flip" onclick="flipCard('banana')">
+↻ ingredients
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- =============================== -->
+<!-- ORANGE CARDAMOM CINNAMON ROLLS -->
+<!-- =============================== -->
+
+<div class="overlay" id="rolls">
+
+<div class="card">
+
+<div class="card-inner">
+
+
+<div class="card-side card-front">
+
+<button class="close" onclick="closeRecipe('rolls')">×</button>
+
+<h2>orange cardamom cinnamon rolls</h2>
+
+<h3>dough</h3>
+
+<ul>
+<li>420–450 g all-purpose flour</li>
+<li>10 g instant yeast</li>
+<li>1 tsp salt</li>
+<li>50 g granulated sugar</li>
+<li>1/4 tsp ground cardamom</li>
+<li>60 g whole-milk yogurt</li>
+<li>240 ml whole milk</li>
+<li>1 large egg, room temperature</li>
+<li>113 g unsalted butter</li>
+<li>1/2 tbsp orange zest</li>
+<li>1/2 tsp vanilla extract</li>
+<li>1/8 tsp orange extract, optional</li>
+</ul>
+
+<h3>filling</h3>
+
+<ul>
+<li>56 g softened unsalted butter</li>
+<li>100 g light brown sugar</li>
+<li>1 tbsp cinnamon</li>
+<li>1/2 tbsp orange zest</li>
+<li>1 tsp cardamom</li>
+<li>pinch of salt</li>
+</ul>
+
+<h3>glaze</h3>
+
+<ul>
+<li>120 g confectioners sugar</li>
+<li>2–3 tbsp milk</li>
+<li>1/2 tsp vanilla extract</li>
+<li>1/4 tsp orange extract, optional</li>
+</ul>
+
+<p class="note">adapted from Baking Is Therapy</p>
+
+<button class="flip" onclick="flipCard('rolls')">
+flip card ↻
+</button>
+
+</div>
+
+
+
+<div class="card-side card-back">
+
+<button class="close" onclick="closeRecipe('rolls')">×</button>
+
+<h2>orange cardamom cinnamon rolls</h2>
+
+<h3>instructions</h3>
+
+<ol>
+<li>Whisk 420 g flour with the yeast, salt, sugar and cardamom.</li>
+
+<li>Warm the milk, butter and yogurt together until the butter has melted and the mixture is about 110°F.</li>
+
+<li>Add the warm mixture to the dry ingredients along with the egg, vanilla, orange zest and orange extract if using.</li>
+
+<li>Mix until a sticky dough forms.</li>
+
+<li>Turn onto a floured surface and knead for about 3–5 minutes. Add only enough extra flour to make the dough manageable. It should stay soft.</li>
+
+<li>Place in a lightly greased bowl, cover and let rise until doubled, about 1–1 1/2 hours.</li>
+
+<li>Mix all filling ingredients together into a soft paste.</li>
+
+<li>Roll the risen dough into roughly a 16×10-inch rectangle.</li>
+
+<li>Spread the filling evenly over the dough.</li>
+
+<li>Roll tightly from the long side and cut into 1–1 1/2-inch rolls.</li>
+
+<li>Arrange in a greased 9×13-inch baking dish.</li>
+
+<li>Cover and let rise again for about 45–60 minutes, until puffy and roughly doubled.</li>
+
+<li>Preheat oven to 350°F and bake for about 25–30 minutes, until lightly golden.</li>
+
+<li>Whisk the glaze ingredients until smooth. Add more milk if needed.</li>
+
+<li>Drizzle glaze over the rolls while still warm.</li>
+</ol>
+
+<button class="flip" onclick="flipCard('rolls')">
+↻ ingredients
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- ================= -->
+<!-- WHITE BEAN PUREE -->
+<!-- ================= -->
+
+<div class="overlay" id="beans">
+
+<div class="card">
+
+<div class="card-inner">
+
+
+<div class="card-side card-front">
+
+<button class="close" onclick="closeRecipe('beans')">×</button>
+
+<h2>white bean purée</h2>
+
+<h3>ingredients</h3>
+
+<ul>
+<li>2 cans white beans, rinsed and drained</li>
+<li>1/3 cup olive oil, plus more for serving</li>
+<li>3 tbsp tahini</li>
+<li>2 tbsp finely diced onion</li>
+<li>2 cloves garlic, sliced</li>
+<li>zest and juice of 1/2 lemon</li>
+<li>1 tsp fresh rosemary, chopped</li>
+<li>pinch of cayenne pepper</li>
+<li>1 tsp Italian or Mediterranean seasoning blend</li>
+<li>black pepper to taste</li>
+<li>salt to taste</li>
+<li>Tabasco to taste</li>
+</ul>
+
+<p class="note">
+scaled way down from a restaurant recipe that originally made several gallons
+</p>
+
+<button class="flip" onclick="flipCard('beans')">
+flip card ↻
+</button>
+
+</div>
+
+
+
+<div class="card-side card-back">
+
+<button class="close" onclick="closeRecipe('beans')">×</button>
+
+<h2>white bean purée</h2>
+
+<h3>instructions</h3>
+
+<ol>
+<li>Add everything except the beans to a food processor or blender.</li>
+
+<li>Blend briefly to combine the garlic, onion, lemon, herbs and seasonings.</li>
+
+<li>Add the drained white beans.</li>
+
+<li>Blend until very smooth, scraping down the sides as needed.</li>
+
+<li>If the purée is too thick, add a little water or additional olive oil until it reaches the consistency you want.</li>
+
+<li>Taste and adjust salt, pepper, lemon and Tabasco.</li>
+
+<li>Serve with a drizzle of olive oil over the top.</li>
 </ol>
 
 <p class="note">
-take them out when they still look a little underdone
+restaurant version used an immersion blender + Vitamix. a food processor is considerably less insane.
 </p>
 
-<button class="flip" onclick="flipCard('cookies')">
+<button class="flip" onclick="flipCard('beans')">
 ↻ ingredients
 </button>
 
@@ -457,11 +718,12 @@ take them out when they still look a little underdone
 
 
 
-<!-- ========== -->
-<!-- FOCACCIA -->
-<!-- ========== -->
 
-<div class="overlay" id="focaccia">
+<!-- ================= -->
+<!-- BLOODY MARY MIX -->
+<!-- ================= -->
+
+<div class="overlay" id="bloodymary">
 
 <div class="card">
 
@@ -470,48 +732,88 @@ take them out when they still look a little underdone
 
 <div class="card-side card-front">
 
-<button class="close" onclick="closeRecipe('focaccia')">×</button>
+<button class="close" onclick="closeRecipe('bloodymary')">×</button>
 
-<h2>focaccia</h2>
+<h2>bloody mary mix</h2>
 
-<h3>ingredients</h3>
+<h3>roasted vegetables</h3>
 
 <ul>
-<li>4 cups flour</li>
-<li>2 tsp yeast</li>
-<li>2 tsp salt</li>
-<li>2 cups warm water</li>
-<li>olive oil</li>
-<li>rosemary</li>
-<li>flaky salt</li>
+<li>1/2 stalk celery</li>
+<li>1 red bell pepper</li>
+<li>1/2 green bell pepper</li>
+<li>1/2 red onion</li>
+<li>1/2 white or yellow onion</li>
+<li>1 small carrot</li>
+<li>about 1 bulb garlic</li>
+<li>1 tbsp black peppercorns</li>
+<li>olive oil + salt for roasting</li>
 </ul>
 
-<button class="flip" onclick="flipCard('focaccia')">
+<h3>mix</h3>
+
+<ul>
+<li>6 tbsp Worcestershire sauce</li>
+<li>2 1/2 tbsp hot sauce</li>
+<li>3 tbsp chili garlic sauce</li>
+<li>6 tbsp olive brine</li>
+<li>4 tbsp prepared horseradish</li>
+<li>6 tbsp lemon juice</li>
+<li>6 tbsp lime juice</li>
+<li>3 tbsp pickle juice</li>
+<li>3 tbsp extra-virgin olive oil</li>
+<li>tomato juice, as needed</li>
+</ul>
+
+<p class="note">
+scaled down from the original 5-gallon restaurant batch
+</p>
+
+<button class="flip" onclick="flipCard('bloodymary')">
 flip card ↻
 </button>
 
 </div>
 
 
+
 <div class="card-side card-back">
 
-<button class="close" onclick="closeRecipe('focaccia')">×</button>
+<button class="close" onclick="closeRecipe('bloodymary')">×</button>
 
-<h2>focaccia</h2>
+<h2>bloody mary mix</h2>
 
 <h3>instructions</h3>
 
 <ol>
-<li>Mix flour, yeast, salt and water.</li>
-<li>Let the dough rise.</li>
-<li>Cover a pan generously with olive oil.</li>
-<li>Stretch the dough into the pan.</li>
-<li>Dimple aggressively.</li>
-<li>Add rosemary, salt and more olive oil.</li>
-<li>Bake until golden.</li>
+<li>Preheat oven to 400°F.</li>
+
+<li>Peel, seed and roughly dice the celery, peppers, onions, carrot and garlic.</li>
+
+<li>Spread the vegetables on a baking sheet. Coat lightly with olive oil and season with salt.</li>
+
+<li>Roast at 400°F until softened and slightly charred around the edges.</li>
+
+<li>Meanwhile, combine Worcestershire, hot sauce, chili garlic sauce, olive brine, horseradish, lemon juice, lime juice, pickle juice and EVOO.</li>
+
+<li>Add the roasted vegetables and peppercorns to a blender with some of the sauce mixture.</li>
+
+<li>Blend until completely smooth.</li>
+
+<li>Combine the vegetable purée with the remaining sauce mixture.</li>
+
+<li>Add tomato juice until the flavor and consistency are where you want them.</li>
+
+<li>Blend again if necessary, then chill thoroughly before serving.</li>
+
+<li>Taste and adjust horseradish, citrus, salt and heat.</li>
 </ol>
 
-<button class="flip" onclick="flipCard('focaccia')">
+<p class="note">
+this makes a lot less than five gallons bc be serious
+</p>
+
+<button class="flip" onclick="flipCard('bloodymary')">
 ↻ ingredients
 </button>
 
@@ -527,11 +829,12 @@ flip card ↻
 
 
 
-<!-- ============ -->
-<!-- TOMATO SOUP -->
-<!-- ============ -->
 
-<div class="overlay" id="soup">
+<!-- ================= -->
+<!-- FARM RANCH -->
+<!-- ================= -->
+
+<div class="overlay" id="ranch">
 
 <div class="card">
 
@@ -540,47 +843,75 @@ flip card ↻
 
 <div class="card-side card-front">
 
-<button class="close" onclick="closeRecipe('soup')">×</button>
+<button class="close" onclick="closeRecipe('ranch')">×</button>
 
-<h2>tomato soup</h2>
+<h2>farm ranch</h2>
 
 <h3>ingredients</h3>
 
 <ul>
-<li>tomatoes</li>
-<li>onion</li>
-<li>garlic</li>
-<li>butter</li>
-<li>vegetable or chicken stock</li>
-<li>cream</li>
-<li>salt + pepper</li>
+<li>1 cup sour cream</li>
+<li>1/2 cup mayonnaise</li>
+<li>3 tbsp buttermilk</li>
+<li>1/3 cup heavy cream</li>
+<li>1 tsp fresh mint, finely chopped</li>
+<li>1 tsp fresh tarragon, finely chopped</li>
+<li>1 tbsp fresh dill, finely chopped</li>
+<li>1 tbsp fresh chives, finely chopped</li>
+<li>1 1/2 tbsp green onion, finely chopped</li>
+<li>small pinch red pepper flakes</li>
+<li>1/4 tsp lemon zest</li>
+<li>1 tsp granulated garlic</li>
+<li>1 tsp apple cider vinegar</li>
+<li>2 tsp Mediterranean seasoning blend</li>
+<li>1/2 tsp pepper seasoning blend</li>
+<li>about 1/2–1 tsp salt, to taste</li>
+<li>about 1/2 tsp cracked black pepper</li>
 </ul>
 
-<button class="flip" onclick="flipCard('soup')">
+<p class="note">
+scaled way down from the restaurant batch
+</p>
+
+<button class="flip" onclick="flipCard('ranch')">
 flip card ↻
 </button>
 
 </div>
 
 
+
 <div class="card-side card-back">
 
-<button class="close" onclick="closeRecipe('soup')">×</button>
+<button class="close" onclick="closeRecipe('ranch')">×</button>
 
-<h2>tomato soup</h2>
+<h2>farm ranch</h2>
 
 <h3>instructions</h3>
 
 <ol>
-<li>Cook onion and garlic in butter.</li>
-<li>Add tomatoes and stock.</li>
-<li>Simmer.</li>
-<li>Blend until smooth.</li>
-<li>Add cream.</li>
-<li>Season until it tastes correct.</li>
+<li>Add the sour cream, mayonnaise, buttermilk and cream to a mixing bowl.</li>
+
+<li>Whisk until completely smooth.</li>
+
+<li>Add the mint, tarragon, dill, chives and green onions.</li>
+
+<li>Add the red pepper flakes, lemon zest, garlic, vinegar and seasonings.</li>
+
+<li>Whisk thoroughly until evenly combined.</li>
+
+<li>Taste and adjust the salt and pepper.</li>
+
+<li>If it's thicker than you want, add a little more buttermilk.</li>
+
+<li>Cover and refrigerate for at least 30 minutes before serving so the herbs and seasoning can get acquainted.</li>
 </ol>
 
-<button class="flip" onclick="flipCard('soup')">
+<p class="note">
+probably even better after a few hours in the fridge
+</p>
+
+<button class="flip" onclick="flipCard('ranch')">
 ↻ ingredients
 </button>
 
@@ -592,6 +923,7 @@ flip card ↻
 </div>
 
 </div>
+
 
 
 
@@ -632,7 +964,7 @@ document
 }
 
 
-/* close recipe by clicking outside card */
+/* CLOSE BY CLICKING OUTSIDE CARD */
 
 document.querySelectorAll(".overlay").forEach(function(overlay){
 
@@ -649,7 +981,7 @@ closeRecipe(overlay.id);
 });
 
 
-/* escape key closes recipe */
+/* ESCAPE KEY CLOSES CARD */
 
 document.addEventListener("keydown", function(event){
 
