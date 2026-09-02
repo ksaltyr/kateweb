@@ -160,7 +160,7 @@ display:flex;
 }
 
 
-/* FLIPPING RECIPE CARD */
+/* FLIPPING CARD */
 
 .card{
 width:520px;
@@ -204,34 +204,48 @@ rgba(120,150,170,.20) 32px
 border:1px solid #777269;
 box-shadow:5px 7px 0 rgba(0,0,0,.25);
 
-padding:28px;
-
-overflow-y:auto;
-overflow-x:hidden;
--webkit-overflow-scrolling:auto;
-overscroll-behavior:contain;
-}
-
-
-/* LO-FI SCROLLBAR */
-
-.card-side::-webkit-scrollbar{
-width:10px;
-}
-
-.card-side::-webkit-scrollbar-track{
-background:#eee9dc;
-border-left:1px solid #aaa59a;
-}
-
-.card-side::-webkit-scrollbar-track{
-background:#c9c2b3;
-border:1px solid #8d887d;
+padding:0;
+overflow:hidden;
 }
 
 .card-back{
 transform:rotateY(180deg);
 }
+
+
+/* ACTUAL SCROLL AREA */
+
+.card-content{
+height:100%;
+box-sizing:border-box;
+padding:28px;
+
+overflow-y:auto;
+overflow-x:hidden;
+
+-webkit-overflow-scrolling:touch;
+overscroll-behavior:contain;
+}
+
+
+/* SCROLLBAR */
+
+.card-content::-webkit-scrollbar{
+width:10px;
+}
+
+.card-content::-webkit-scrollbar-track{
+background:#eee9dc;
+border-left:1px solid #aaa59a;
+}
+
+.card-content::-webkit-scrollbar-thumb{
+background:#c9c2b3;
+border:1px solid #8d887d;
+}
+
+
+/* CARD TEXT */
 
 .card-side h2{
 font-size:21px;
@@ -269,7 +283,7 @@ position:absolute;
 top:11px;
 right:15px;
 border:0;
-background:none;
+background:#f7f3e8;
 font-family:Verdana, Geneva, sans-serif;
 font-size:18px;
 cursor:pointer;
@@ -312,7 +326,7 @@ gap:18px;
 height:80vh;
 }
 
-.card-side{
+.card-content{
 padding:24px 20px;
 }
 
@@ -345,77 +359,38 @@ padding:24px 20px;
 <div class="recipe-grid">
 
 
-<!-- BANANA BREAD -->
-
-<div class="recipe-preview"
-onclick="openRecipe('banana')">
-
+<div class="recipe-preview" onclick="openRecipe('banana')">
 <h2>banana bread</h2>
-
 <p>sweet / bread / chocolate</p>
-
 <span class="open-symbol">+</span>
-
 </div>
 
 
-
-<!-- CINNAMON ROLLS -->
-
-<div class="recipe-preview"
-onclick="openRecipe('rolls')">
-
+<div class="recipe-preview" onclick="openRecipe('rolls')">
 <h2>orange cardamom cinnamon rolls</h2>
-
 <p>sweet / breakfast / worth the effort</p>
-
 <span class="open-symbol">+</span>
-
 </div>
 
 
-
-<!-- WHITE BEAN PUREE -->
-
-<div class="recipe-preview"
-onclick="openRecipe('beans')">
-
+<div class="recipe-preview" onclick="openRecipe('beans')">
 <h2>white bean purée</h2>
-
-<p>savory / secret recipe</p>
-
+<p>savory / restaurant recipe</p>
 <span class="open-symbol">+</span>
-
 </div>
 
 
-
-<!-- BLOODY MARY -->
-
-<div class="recipe-preview"
-onclick="openRecipe('bloodymary')">
-
+<div class="recipe-preview" onclick="openRecipe('bloodymary')">
 <h2>bloody mary mix</h2>
-
-<p>savory / spicy / secret recipe</p>
-
+<p>savory / spicy / restaurant recipe</p>
 <span class="open-symbol">+</span>
-
 </div>
 
 
-
-<!-- FARM RANCH -->
-
-<div class="recipe-preview"
-onclick="openRecipe('ranch')">
-
+<div class="recipe-preview" onclick="openRecipe('ranch')">
 <h2>farm ranch</h2>
-
-<p>dressing / secret recipe</p>
-
+<p>dressing / restaurant recipe</p>
 <span class="open-symbol">+</span>
-
 </div>
 
 
@@ -425,20 +400,17 @@ onclick="openRecipe('ranch')">
 
 
 <div class="box">
-
 <a href="index.html">← Back Home</a>
-
-</div>
-
 </div>
 
 
+</div>
 
 
 
-<!-- ================= -->
+
+
 <!-- BANANA BREAD -->
-<!-- ================= -->
 
 <div class="overlay" id="banana">
 
@@ -450,6 +422,8 @@ onclick="openRecipe('ranch')">
 <div class="card-side card-front">
 
 <button class="close" onclick="closeRecipe('banana')">×</button>
+
+<div class="card-content">
 
 <h2>banana bread</h2>
 
@@ -477,43 +451,35 @@ flip card ↻
 
 </div>
 
+</div>
+
 
 
 <div class="card-side card-back">
 
 <button class="close" onclick="closeRecipe('banana')">×</button>
 
+<div class="card-content">
+
 <h2>banana bread</h2>
 
 <h3>instructions</h3>
 
 <ol>
-
 <li>Preheat oven to 350°F. Grease or line a 9×5-inch loaf pan.</li>
-
-<li>Mash the bananas in a large bowl until mostly smooth.</li>
-
+<li>Mash the bananas until mostly smooth.</li>
 <li>Melt the butter and let it cool slightly.</li>
-
-<li>Whisk the melted butter with the granulated sugar and brown sugar.</li>
-
-<li>Add the eggs, vanilla, sour cream and mashed bananas. Mix until combined.</li>
-
+<li>Whisk the butter with the granulated sugar and brown sugar.</li>
+<li>Add the eggs, vanilla, sour cream and mashed bananas.</li>
 <li>In a separate bowl, whisk together the flour, baking soda and salt.</li>
-
-<li>Fold the dry ingredients into the wet ingredients until just combined. Don't overmix.</li>
-
+<li>Fold the dry ingredients into the wet ingredients until just combined.</li>
 <li>Fold in the chocolate chips.</li>
-
-<li>Pour the batter into the prepared loaf pan. Sprinkle a few extra chocolate chips on top if desired.</li>
-
-<li>Bake for about 45 minutes, or until a toothpick inserted in the center comes out with a few moist crumbs. Add a few minutes if needed.</li>
-
+<li>Pour into the prepared loaf pan.</li>
+<li>Bake for about 45 minutes, or until a toothpick comes out with a few moist crumbs.</li>
 <li>Cool in the pan for about 15 minutes before removing.</li>
-
 </ol>
 
-<p class="note">better slightly underdone than dry</p>
+<p class="note">better slightly underdone than dry imo</p>
 
 <button class="flip" onclick="flipCard('banana')">
 ↻ ingredients
@@ -521,6 +487,8 @@ flip card ↻
 
 </div>
 
+</div>
+
 
 </div>
 
@@ -532,9 +500,7 @@ flip card ↻
 
 
 
-<!-- =============================== -->
 <!-- ORANGE CARDAMOM CINNAMON ROLLS -->
-<!-- =============================== -->
 
 <div class="overlay" id="rolls">
 
@@ -546,6 +512,8 @@ flip card ↻
 <div class="card-side card-front">
 
 <button class="close" onclick="closeRecipe('rolls')">×</button>
+
+<div class="card-content">
 
 <h2>orange cardamom cinnamon rolls</h2>
 
@@ -594,50 +562,37 @@ flip card ↻
 
 </div>
 
+</div>
+
 
 
 <div class="card-side card-back">
 
 <button class="close" onclick="closeRecipe('rolls')">×</button>
 
+<div class="card-content">
+
 <h2>orange cardamom cinnamon rolls</h2>
 
 <h3>instructions</h3>
 
 <ol>
-
 <li>Whisk 420 g flour with the yeast, salt, sugar and cardamom.</li>
-
 <li>Warm the milk, butter and yogurt together until the butter melts and the mixture is warm but not hot.</li>
-
-<li>Add the warm mixture to the dry ingredients along with the egg, vanilla, orange zest and orange extract if using.</li>
-
+<li>Add the warm mixture to the dry ingredients with the egg, vanilla, orange zest and orange extract if using.</li>
 <li>Mix until a sticky dough forms.</li>
-
-<li>Turn onto a floured surface and knead for about 3–5 minutes. Add only enough extra flour to make the dough manageable.</li>
-
-<li>Place in a lightly greased bowl, cover and let rise until doubled, about 1–1 1/2 hours.</li>
-
-<li>Mix all filling ingredients together into a soft paste.</li>
-
-<li>Roll the risen dough into roughly a 16×10-inch rectangle.</li>
-
+<li>Knead for about 3–5 minutes, adding only enough extra flour to make the dough manageable.</li>
+<li>Place in a lightly greased bowl and let rise until doubled, about 1–1 1/2 hours.</li>
+<li>Mix the filling ingredients into a soft paste.</li>
+<li>Roll the dough into roughly a 16×10-inch rectangle.</li>
 <li>Spread the filling evenly over the dough.</li>
-
-<li>Roll tightly from the long side and cut into 1–1 1/2-inch rolls.</li>
-
+<li>Roll tightly from the long side and cut into rolls.</li>
 <li>Arrange in a greased 9×13-inch baking dish.</li>
-
-<li>Cover and let rise again for about 45–60 minutes until puffy.</li>
-
+<li>Cover and let rise again for about 45–60 minutes.</li>
 <li>Preheat oven to 350°F.</li>
-
-<li>Bake for about 25–30 minutes until lightly golden.</li>
-
-<li>Whisk the glaze ingredients until smooth.</li>
-
-<li>Drizzle glaze over the rolls while still warm.</li>
-
+<li>Bake about 25–30 minutes until lightly golden.</li>
+<li>Whisk together the glaze ingredients.</li>
+<li>Drizzle over the rolls while warm.</li>
 </ol>
 
 <button class="flip" onclick="flipCard('rolls')">
@@ -646,6 +601,8 @@ flip card ↻
 
 </div>
 
+</div>
+
 
 </div>
 
@@ -657,9 +614,7 @@ flip card ↻
 
 
 
-<!-- ================= -->
 <!-- WHITE BEAN PUREE -->
-<!-- ================= -->
 
 <div class="overlay" id="beans">
 
@@ -671,6 +626,8 @@ flip card ↻
 <div class="card-side card-front">
 
 <button class="close" onclick="closeRecipe('beans')">×</button>
+
+<div class="card-content">
 
 <h2>white bean purée</h2>
 
@@ -692,12 +649,14 @@ flip card ↻
 </ul>
 
 <p class="note">
-secret
+best hummus 
 </p>
 
 <button class="flip" onclick="flipCard('beans')">
 flip card ↻
 </button>
+
+</div>
 
 </div>
 
@@ -707,31 +666,21 @@ flip card ↻
 
 <button class="close" onclick="closeRecipe('beans')">×</button>
 
+<div class="card-content">
+
 <h2>white bean purée</h2>
 
 <h3>instructions</h3>
 
 <ol>
-
 <li>Add everything except the beans to a food processor or blender.</li>
-
-<li>Blend briefly to combine the garlic, onion, lemon, herbs and seasonings.</li>
-
+<li>Blend briefly to combine.</li>
 <li>Add the drained white beans.</li>
-
-<li>Blend until very smooth, scraping down the sides as needed.</li>
-
-<li>If the purée is too thick, add a little water or additional olive oil.</li>
-
+<li>Blend until very smooth.</li>
+<li>Add a little water or more olive oil if it is too thick.</li>
 <li>Taste and adjust salt, pepper, lemon and Tabasco.</li>
-
-<li>Serve with a drizzle of olive oil over the top.</li>
-
+<li>Serve with olive oil drizzled over the top.</li>
 </ol>
-
-<p class="note">
-secret
-</p>
 
 <button class="flip" onclick="flipCard('beans')">
 ↻ ingredients
@@ -739,6 +688,8 @@ secret
 
 </div>
 
+</div>
+
 
 </div>
 
@@ -750,9 +701,7 @@ secret
 
 
 
-<!-- ================= -->
 <!-- BLOODY MARY MIX -->
-<!-- ================= -->
 
 <div class="overlay" id="bloodymary">
 
@@ -764,6 +713,8 @@ secret
 <div class="card-side card-front">
 
 <button class="close" onclick="closeRecipe('bloodymary')">×</button>
+
+<div class="card-content">
 
 <h2>bloody mary mix</h2>
 
@@ -797,12 +748,14 @@ secret
 </ul>
 
 <p class="note">
-top secret
+magic potion
 </p>
 
 <button class="flip" onclick="flipCard('bloodymary')">
 flip card ↻
 </button>
+
+</div>
 
 </div>
 
@@ -812,40 +765,29 @@ flip card ↻
 
 <button class="close" onclick="closeRecipe('bloodymary')">×</button>
 
+<div class="card-content">
+
 <h2>bloody mary mix</h2>
 
 <h3>instructions</h3>
 
 <ol>
-
 <li>Preheat oven to 400°F.</li>
-
-<li>Peel, seed and roughly dice the celery, peppers, onions, carrot and garlic.</li>
-
-<li>Spread the vegetables on a baking sheet. Coat lightly with olive oil and season with salt.</li>
-
-<li>Roast until softened and slightly charred around the edges.</li>
-
-<li>Meanwhile, combine Worcestershire, hot sauce, chili garlic sauce, olive brine, horseradish, lemon juice, lime juice, pickle juice and EVOO.</li>
-
-<li>Add the roasted vegetables and peppercorns to a blender with some of the sauce mixture.</li>
-
+<li>Roughly dice the celery, peppers, onions, carrot and garlic.</li>
+<li>Coat lightly with olive oil and season with salt.</li>
+<li>Roast until softened and lightly charred.</li>
+<li>Combine Worcestershire, hot sauce, chili garlic sauce, olive brine, horseradish, lemon juice, lime juice, pickle juice and EVOO.</li>
+<li>Add the roasted vegetables and peppercorns to a blender with some of the liquid mixture.</li>
 <li>Blend until completely smooth.</li>
-
-<li>Combine the vegetable purée with the remaining sauce mixture.</li>
-
+<li>Combine with the remaining liquid mixture.</li>
 <li>Add tomato juice until the flavor and consistency are where you want them.</li>
-
-<li>Blend again if necessary.</li>
-
+<li>Blend again if needed.</li>
 <li>Chill thoroughly.</li>
-
-<li>Taste and adjust horseradish, citrus, salt and heat.</li>
-
+<li>Taste and adjust citrus, horseradish, salt and heat.</li>
 </ol>
 
 <p class="note">
-super secret
+good 4 hangover cure
 </p>
 
 <button class="flip" onclick="flipCard('bloodymary')">
@@ -854,6 +796,8 @@ super secret
 
 </div>
 
+</div>
+
 
 </div>
 
@@ -865,9 +809,7 @@ super secret
 
 
 
-<!-- ================= -->
 <!-- FARM RANCH -->
-<!-- ================= -->
 
 <div class="overlay" id="ranch">
 
@@ -879,6 +821,8 @@ super secret
 <div class="card-side card-front">
 
 <button class="close" onclick="closeRecipe('ranch')">×</button>
+
+<div class="card-content">
 
 <h2>farm ranch</h2>
 
@@ -905,12 +849,14 @@ super secret
 </ul>
 
 <p class="note">
-secret
+yum
 </p>
 
 <button class="flip" onclick="flipCard('ranch')">
 flip card ↻
 </button>
+
+</div>
 
 </div>
 
@@ -920,28 +866,21 @@ flip card ↻
 
 <button class="close" onclick="closeRecipe('ranch')">×</button>
 
+<div class="card-content">
+
 <h2>farm ranch</h2>
 
 <h3>instructions</h3>
 
 <ol>
-
-<li>Add the sour cream, mayonnaise, buttermilk and cream to a mixing bowl.</li>
-
+<li>Add sour cream, mayonnaise, buttermilk and cream to a bowl.</li>
 <li>Whisk until completely smooth.</li>
-
-<li>Add the mint, tarragon, dill, chives and green onions.</li>
-
-<li>Add the red pepper flakes, lemon zest, garlic, vinegar and seasonings.</li>
-
-<li>Whisk thoroughly until evenly combined.</li>
-
-<li>Taste and adjust the salt and pepper.</li>
-
-<li>If it is thicker than you want, add a little more buttermilk.</li>
-
+<li>Add mint, tarragon, dill, chives and green onion.</li>
+<li>Add red pepper flakes, lemon zest, garlic, vinegar and seasonings.</li>
+<li>Whisk thoroughly.</li>
+<li>Taste and adjust salt and pepper.</li>
+<li>Add a little more buttermilk if you want it thinner.</li>
 <li>Cover and refrigerate for at least 30 minutes before serving.</li>
-
 </ol>
 
 <p class="note">
@@ -951,6 +890,8 @@ probably even better after a few hours in the fridge
 <button class="flip" onclick="flipCard('ranch')">
 ↻ ingredients
 </button>
+
+</div>
 
 </div>
 
@@ -1001,7 +942,7 @@ document
 }
 
 
-/* CLOSE BY CLICKING OUTSIDE CARD */
+/* CLOSE BY CLICKING OUTSIDE */
 
 document.querySelectorAll(".overlay").forEach(function(overlay){
 
