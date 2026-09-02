@@ -208,8 +208,21 @@ padding:0;
 overflow:hidden;
 }
 
+.card-front{
+pointer-events:auto;
+}
+
 .card-back{
 transform:rotateY(180deg);
+pointer-events:none;
+}
+
+.card.flipped .card-front{
+pointer-events:none;
+}
+
+.card.flipped .card-back{
+pointer-events:auto;
 }
 
 
