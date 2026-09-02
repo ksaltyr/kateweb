@@ -81,7 +81,7 @@ padding:8px 2px;
 }
 
 
-/* CLOSED CARDS */
+/* CLOSED RECIPE CARDS */
 
 .recipe-preview{
 background:#f7f3e8;
@@ -160,7 +160,7 @@ display:flex;
 }
 
 
-/* RECIPE CARD */
+/* FLIPPING RECIPE CARD */
 
 .card{
 width:520px;
@@ -187,6 +187,7 @@ position:absolute;
 width:100%;
 height:100%;
 box-sizing:border-box;
+
 backface-visibility:hidden;
 -webkit-backface-visibility:hidden;
 
@@ -202,8 +203,28 @@ rgba(120,150,170,.20) 32px
 
 border:1px solid #777269;
 box-shadow:5px 7px 0 rgba(0,0,0,.25);
+
 padding:28px;
-overflow-y:auto;
+
+overflow-y:scroll;
+overflow-x:hidden;
+}
+
+
+/* LO-FI SCROLLBAR */
+
+.card-side::-webkit-scrollbar{
+width:10px;
+}
+
+.card-side::-webkit-scrollbar-track{
+background:#eee9dc;
+border-left:1px solid #aaa59a;
+}
+
+.card-side::-webkit-scrollbar-thumb{
+background:#c9c2b3;
+border:1px solid #8d887d;
 }
 
 .card-back{
@@ -465,6 +486,7 @@ flip card ↻
 <h3>instructions</h3>
 
 <ol>
+
 <li>Preheat oven to 350°F. Grease or line a 9×5-inch loaf pan.</li>
 
 <li>Mash the bananas in a large bowl until mostly smooth.</li>
@@ -486,6 +508,7 @@ flip card ↻
 <li>Bake for about 45 minutes, or until a toothpick inserted in the center comes out with a few moist crumbs. Add a few minutes if needed.</li>
 
 <li>Cool in the pan for about 15 minutes before removing.</li>
+
 </ol>
 
 <p class="note">better slightly underdone than dry imo</p>
@@ -580,15 +603,16 @@ flip card ↻
 <h3>instructions</h3>
 
 <ol>
+
 <li>Whisk 420 g flour with the yeast, salt, sugar and cardamom.</li>
 
-<li>Warm the milk, butter and yogurt together until the butter has melted and the mixture is about 110°F.</li>
+<li>Warm the milk, butter and yogurt together until the butter melts and the mixture is warm but not hot.</li>
 
 <li>Add the warm mixture to the dry ingredients along with the egg, vanilla, orange zest and orange extract if using.</li>
 
 <li>Mix until a sticky dough forms.</li>
 
-<li>Turn onto a floured surface and knead for about 3–5 minutes. Add only enough extra flour to make the dough manageable. It should stay soft.</li>
+<li>Turn onto a floured surface and knead for about 3–5 minutes. Add only enough extra flour to make the dough manageable.</li>
 
 <li>Place in a lightly greased bowl, cover and let rise until doubled, about 1–1 1/2 hours.</li>
 
@@ -602,13 +626,16 @@ flip card ↻
 
 <li>Arrange in a greased 9×13-inch baking dish.</li>
 
-<li>Cover and let rise again for about 45–60 minutes, until puffy and roughly doubled.</li>
+<li>Cover and let rise again for about 45–60 minutes until puffy.</li>
 
-<li>Preheat oven to 350°F and bake for about 25–30 minutes, until lightly golden.</li>
+<li>Preheat oven to 350°F.</li>
 
-<li>Whisk the glaze ingredients until smooth. Add more milk if needed.</li>
+<li>Bake for about 25–30 minutes until lightly golden.</li>
+
+<li>Whisk the glaze ingredients until smooth.</li>
 
 <li>Drizzle glaze over the rolls while still warm.</li>
+
 </ol>
 
 <button class="flip" onclick="flipCard('rolls')">
@@ -683,6 +710,7 @@ flip card ↻
 <h3>instructions</h3>
 
 <ol>
+
 <li>Add everything except the beans to a food processor or blender.</li>
 
 <li>Blend briefly to combine the garlic, onion, lemon, herbs and seasonings.</li>
@@ -691,11 +719,12 @@ flip card ↻
 
 <li>Blend until very smooth, scraping down the sides as needed.</li>
 
-<li>If the purée is too thick, add a little water or additional olive oil until it reaches the consistency you want.</li>
+<li>If the purée is too thick, add a little water or additional olive oil.</li>
 
 <li>Taste and adjust salt, pepper, lemon and Tabasco.</li>
 
 <li>Serve with a drizzle of olive oil over the top.</li>
+
 </ol>
 
 <p class="note">
@@ -786,13 +815,14 @@ flip card ↻
 <h3>instructions</h3>
 
 <ol>
+
 <li>Preheat oven to 400°F.</li>
 
 <li>Peel, seed and roughly dice the celery, peppers, onions, carrot and garlic.</li>
 
 <li>Spread the vegetables on a baking sheet. Coat lightly with olive oil and season with salt.</li>
 
-<li>Roast at 400°F until softened and slightly charred around the edges.</li>
+<li>Roast until softened and slightly charred around the edges.</li>
 
 <li>Meanwhile, combine Worcestershire, hot sauce, chili garlic sauce, olive brine, horseradish, lemon juice, lime juice, pickle juice and EVOO.</li>
 
@@ -804,9 +834,12 @@ flip card ↻
 
 <li>Add tomato juice until the flavor and consistency are where you want them.</li>
 
-<li>Blend again if necessary, then chill thoroughly before serving.</li>
+<li>Blend again if necessary.</li>
+
+<li>Chill thoroughly.</li>
 
 <li>Taste and adjust horseradish, citrus, salt and heat.</li>
+
 </ol>
 
 <p class="note">
@@ -890,6 +923,7 @@ flip card ↻
 <h3>instructions</h3>
 
 <ol>
+
 <li>Add the sour cream, mayonnaise, buttermilk and cream to a mixing bowl.</li>
 
 <li>Whisk until completely smooth.</li>
@@ -902,9 +936,10 @@ flip card ↻
 
 <li>Taste and adjust the salt and pepper.</li>
 
-<li>If it's thicker than you want, add a little more buttermilk.</li>
+<li>If it is thicker than you want, add a little more buttermilk.</li>
 
-<li>Cover and refrigerate for at least 30 minutes before serving so the herbs and seasoning can get acquainted.</li>
+<li>Cover and refrigerate for at least 30 minutes before serving.</li>
+
 </ol>
 
 <p class="note">
