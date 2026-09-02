@@ -206,8 +206,10 @@ box-shadow:5px 7px 0 rgba(0,0,0,.25);
 
 padding:28px;
 
-overflow-y:scroll;
+overflow-y:auto;
 overflow-x:hidden;
+-webkit-overflow-scrolling:touch;
+overscroll-behavior:contain;
 }
 
 
@@ -380,7 +382,7 @@ onclick="openRecipe('beans')">
 
 <h2>white bean purée</h2>
 
-<p>savory / restaurant recipe</p>
+<p>savory / secret recipe</p>
 
 <span class="open-symbol">+</span>
 
@@ -395,7 +397,7 @@ onclick="openRecipe('bloodymary')">
 
 <h2>bloody mary mix</h2>
 
-<p>savory / spicy / restaurant recipe</p>
+<p>savory / spicy / secret recipe</p>
 
 <span class="open-symbol">+</span>
 
@@ -410,7 +412,7 @@ onclick="openRecipe('ranch')">
 
 <h2>farm ranch</h2>
 
-<p>dressing / restaurant recipe</p>
+<p>dressing / secret recipe</p>
 
 <span class="open-symbol">+</span>
 
@@ -511,7 +513,7 @@ flip card ↻
 
 </ol>
 
-<p class="note">better slightly underdone than dry imo</p>
+<p class="note">better slightly underdone than dry</p>
 
 <button class="flip" onclick="flipCard('banana')">
 ↻ ingredients
@@ -690,7 +692,7 @@ flip card ↻
 </ul>
 
 <p class="note">
-scaled way down from a restaurant recipe that originally made several gallons
+secret
 </p>
 
 <button class="flip" onclick="flipCard('beans')">
@@ -728,7 +730,7 @@ flip card ↻
 </ol>
 
 <p class="note">
-restaurant version used an immersion blender + Vitamix. a food processor is considerably less insane.
+secret
 </p>
 
 <button class="flip" onclick="flipCard('beans')">
@@ -795,7 +797,7 @@ restaurant version used an immersion blender + Vitamix. a food processor is cons
 </ul>
 
 <p class="note">
-scaled down from the original 5-gallon restaurant batch
+top secret
 </p>
 
 <button class="flip" onclick="flipCard('bloodymary')">
@@ -843,7 +845,7 @@ flip card ↻
 </ol>
 
 <p class="note">
-this makes a lot less than five gallons bc be serious
+super secret
 </p>
 
 <button class="flip" onclick="flipCard('bloodymary')">
@@ -903,7 +905,7 @@ this makes a lot less than five gallons bc be serious
 </ul>
 
 <p class="note">
-scaled way down from the restaurant batch
+secret
 </p>
 
 <button class="flip" onclick="flipCard('ranch')">
